@@ -3,8 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>प्रणव भारद्वाज - बैग चेकर | Class II</title>
+  <title>भारद्वाज बैग चेकर | Kautilya & Pranav</title>
   
+  <link rel="icon" type="image/png" href="kautilya.png">
+  <link rel="apple-touch-icon" href="kautilya.png">
+  <link rel="shortcut icon" href="kautilya.png">
+
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <style>
@@ -34,7 +38,7 @@
       opacity: 0.04; pointer-events: none; word-wrap: break-word; z-index: 0;
     }
 
-    /* 4-Digit Security PIN Screen */
+    /* PIN Lock Screen */
     .pin-lock-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -128,7 +132,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
     .btn-lock-app {
       background: rgba(255, 255, 255, 0.85);
@@ -172,8 +176,45 @@
       box-shadow: 0 2px 6px rgba(37,99,235,0.3);
     }
 
+    /* Student Switcher Tab Bar */
+    .student-switch-bar {
+      background: #ffffff;
+      padding: 5px;
+      border-radius: 16px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-bottom: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      border: 1px solid #e2e8f0;
+    }
+    .student-tab-btn {
+      border: none;
+      background: transparent;
+      padding: 10px 8px;
+      font-size: 13.5px;
+      font-weight: 800;
+      color: #64748b;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .student-tab-btn.active {
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #ffffff;
+      box-shadow: 0 4px 10px rgba(37,99,235,0.25);
+    }
+    .student-tab-btn.active.pranav-active {
+      background: linear-gradient(135deg, #0d9488, #0f766e);
+      box-shadow: 0 4px 10px rgba(13,148,136,0.25);
+    }
+
     .live-clock-card {
-      background: linear-gradient(135deg, #0f766e, #0d9488);
+      background: linear-gradient(135deg, #1e3a8a, #3b82f6);
       color: #ffffff;
       border-radius: 14px;
       padding: 10px 16px;
@@ -181,36 +222,38 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 4px 15px rgba(13, 148, 136, 0.25);
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.25);
+      transition: background 0.3s ease;
     }
     .clock-date-group { display: flex; flex-direction: column; }
-    .live-day-tag { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.9; font-weight: 700; color: #99f6e4; }
+    .live-day-tag { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.9; font-weight: 700; color: #93c5fd; }
     .live-date-text { font-size: 13px; font-weight: 700; margin-top: 1px; }
     .live-time-badge { background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(8px); padding: 5px 12px; border-radius: 20px; font-size: 14px; font-weight: 800; letter-spacing: 0.5px; border: 1px solid rgba(255, 255, 255, 0.3); }
 
     .header { text-align: center; margin-bottom: 12px; width: 100%; display: flex; flex-direction: column; align-items: center; }
     .avatar-wrapper { margin: 0 auto 10px auto; position: relative; }
-    .avatar-badge-icon {
-      width: 84px; height: 84px; border-radius: 50%;
+    .avatar-img { width: 92px; height: 92px; border-radius: 50%; object-fit: cover; box-shadow: 0 6px 18px rgba(37, 99, 235, 0.28); border: 3.5px solid #ffffff; display: block; margin: 0 auto; }
+    .avatar-icon-placeholder {
+      width: 86px; height: 86px; border-radius: 50%;
       background: linear-gradient(135deg, #0d9488, #047857);
       color: #ffffff; display: flex; align-items: center; justify-content: center;
       font-size: 38px; box-shadow: 0 6px 18px rgba(13, 148, 136, 0.28);
       border: 3.5px solid #ffffff;
     }
     
-    .checker-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 800; color: #0d9488; background: #ccfbf1; padding: 4px 14px; border-radius: 20px; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.6px; border: 1px solid #99f6e4; }
+    .checker-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 800; color: #2563eb; background: #dbeafe; padding: 4px 14px; border-radius: 20px; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.6px; border: 1px solid #bfdbfe; }
     .header h1.student-name { font-size: 26px; color: #0f172a; font-weight: 900; line-height: 1.2; letter-spacing: -0.5px; }
-    .student-eng-name { font-size: 14px; color: #0d9488; font-weight: 700; margin-top: 2px; }
+    .student-eng-name { font-size: 14px; color: #2563eb; font-weight: 700; margin-top: 2px; }
     .header p.school-info { font-size: 12.5px; color: #64748b; margin-top: 4px; font-weight: 500; }
 
-    /* Dress Notice Card */
+    /* Dress Card (Pranav only) */
     .dress-notice-card {
       background: #eff6ff;
       border: 1.5px solid #bfdbfe;
       border-radius: 14px;
       padding: 11px 14px;
       margin-bottom: 14px;
-      display: flex;
+      display: none;
       align-items: center;
       gap: 10px;
       box-shadow: 0 2px 6px rgba(37,99,235,0.06);
@@ -251,11 +294,11 @@
     .btn-reset-top:active { background: #e2e8f0; transform: scale(0.95); }
     
     .progress-bar-bg { width: 100%; height: 10px; background-color: #e2e8f0; border-radius: 10px; overflow: hidden; }
-    .progress-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #0d9488, #059669); border-radius: 10px; transition: width 0.3s ease, background 0.3s ease; }
+    .progress-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #3b82f6, #2563eb); border-radius: 10px; transition: width 0.3s ease, background 0.3s ease; }
 
     .days-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
     .day-btn { position: relative; padding: 12px 4px; font-size: 13px; font-weight: 700; border: 1px solid #e2e8f0; background: rgba(255, 255, 255, 0.85); color: #475569; border-radius: 12px; cursor: pointer; text-align: center; transition: all 0.2s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.03); backdrop-filter: blur(6px); }
-    .day-btn.active { background: linear-gradient(135deg, #0d9488, #0f766e); color: #ffffff; border-color: #0d9488; box-shadow: 0 4px 12px rgba(13,148,136,0.32); transform: translateY(-1px); }
+    .day-btn.active { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #ffffff; border-color: #2563eb; box-shadow: 0 4px 12px rgba(37,99,235,0.32); transform: translateY(-1px); }
     .today-badge { position: absolute; top: -6px; right: -4px; background: #f59e0b; color: #ffffff; font-size: 9px; font-weight: 800; padding: 1px 6px; border-radius: 10px; border: 1px solid #ffffff; box-shadow: 0 2px 4px rgba(0,0,0,0.15); }
 
     .day-btn.sunday-btn { border-color: #fca5a5; background: #fff5f5; color: #dc2626; grid-column: span 3; font-weight: 800; font-size: 14px; }
@@ -275,10 +318,10 @@
     .sunday-holiday-card p { font-size: 13.5px; color: #881337; font-weight: 600; line-height: 1.5; }
 
     .card { background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(10px); border-radius: 16px; padding: 14px 16px; box-shadow: 0 4px 18px rgba(0,0,0,0.03); margin-bottom: 12px; border: 1px solid rgba(255, 255, 255, 0.8); }
-    .period-title { font-size: 14px; font-weight: 800; color: #0f766e; margin-bottom: 10px; border-bottom: 1px dashed #e2e8f0; padding-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+    .period-title { font-size: 14px; font-weight: 800; color: #1e40af; margin-bottom: 10px; border-bottom: 1px dashed #e2e8f0; padding-bottom: 6px; display: flex; align-items: center; gap: 6px; }
     
     .item-row { display: flex; align-items: center; gap: 12px; margin: 9px 0; cursor: pointer; user-select: none; }
-    .item-row input[type="checkbox"] { width: 22px; height: 22px; accent-color: #0d9488; cursor: pointer; border-radius: 6px; }
+    .item-row input[type="checkbox"] { width: 22px; height: 22px; accent-color: #2563eb; cursor: pointer; border-radius: 6px; }
     .item-label { font-size: 14.5px; color: #1e293b; font-weight: 600; }
     .item-row input:checked + .item-label { text-decoration: line-through; color: #94a3b8; }
     
@@ -327,17 +370,17 @@
       width: 100%;
       box-shadow: 0 20px 40px rgba(0,0,0,0.25);
       animation: popIn 0.3s ease-out;
-      border: 3px solid #99f6e4;
+      border: 3px solid #fef08a;
     }
     @keyframes popIn {
       0% { transform: scale(0.7); opacity: 0; }
       100% { transform: scale(1); opacity: 1; }
     }
     .reward-stars { font-size: 38px; margin-bottom: 8px; letter-spacing: 4px; }
-    .reward-modal h3 { font-size: 22px; font-weight: 900; color: #047857; margin-bottom: 6px; }
+    .reward-modal h3 { font-size: 22px; font-weight: 900; color: #15803d; margin-bottom: 6px; }
     .reward-modal p { font-size: 14.5px; color: #334155; font-weight: 600; line-height: 1.5; margin-bottom: 18px; }
     .btn-reward-close {
-      background: linear-gradient(135deg, #0d9488, #059669);
+      background: linear-gradient(135deg, #22c55e, #16a34a);
       color: #ffffff;
       font-size: 14px;
       font-weight: 800;
@@ -345,7 +388,7 @@
       border-radius: 20px;
       border: none;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(13, 148, 136, 0.35);
+      box-shadow: 0 4px 12px rgba(34, 197, 94, 0.35);
     }
 
     .footer-ad { margin-top: 24px; padding: 16px; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(8px); border-radius: 16px; border: 1px dashed #94a3b8; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
@@ -357,12 +400,12 @@
 </head>
 <body>
 
-<!-- 4-Digit PIN Lock Screen -->
+<!-- 4-Digit Security PIN Lock Screen -->
 <div class="pin-lock-overlay" id="pinOverlay">
   <div class="pin-box">
     <div class="pin-icon">🔒</div>
     <div class="pin-title">सुरक्षित एक्सेस (Security PIN)</div>
-    <div class="pin-subtitle">प्रणव बैग चेकर (Class 2) खोलने के लिए 4-अंकों का पिन डालें</div>
+    <div class="pin-subtitle">भारद्वाज बैग चेकर खोलने के लिए 4-अंकों का पिन दर्ज करें</div>
     
     <input type="password" inputmode="numeric" maxlength="4" class="pin-input-field" id="userPinInput" placeholder="••••" autofocus>
     
@@ -388,7 +431,17 @@
     </div>
   </div>
 
-  <div class="live-clock-card">
+  <!-- 1-Click Student Switcher Tab Bar -->
+  <div class="student-switch-bar">
+    <button class="student-tab-btn active" id="tab-kautilya" onclick="switchStudent('kautilya')">
+      <span>🎒 कौटिल्य (Nursery)</span>
+    </button>
+    <button class="student-tab-btn" id="tab-pranav" onclick="switchStudent('pranav')">
+      <span>👦 प्रणव (Class 2)</span>
+    </button>
+  </div>
+
+  <div class="live-clock-card" id="liveClockCard">
     <div class="clock-date-group">
       <div class="live-day-tag" id="ui-day-tag">📅 आज का दिन</div>
       <div class="live-date-text" id="live-date">...</div>
@@ -397,16 +450,16 @@
   </div>
 
   <div class="header">
-    <div class="avatar-wrapper">
-      <div class="avatar-badge-icon">👦</div>
+    <div class="avatar-wrapper" id="avatarContainer">
+      <img src="kautilya.png" id="studentImg" alt="Student" class="avatar-img" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'92\' height=\'92\'><rect fill=\'%232563eb\' width=\'92\' height=\'92\'/><text fill=\'%23fff\' font-size=\'42\' x=\'50%25\' y=\'58%25\' text-anchor=\'middle\'>🎒</text></svg>'">
     </div>
-    <div class="checker-tag" id="ui-checker-tag">🎒 घर के लिए बैग चेकर (CLASS 2)</div>
-    <h1 class="student-name" id="ui-student-name">प्रणव भारद्वाज</h1>
-    <div class="student-eng-name" id="ui-student-eng">Pranav Bhardwaj (Class II)</div>
-    <p class="school-info" id="ui-school-info">अमृता जी के लिए विशेष सूची | सेशन 2026-27</p>
+    <div class="checker-tag" id="ui-checker-tag">🎒 घर के लिए बैग चेकर (नर्सरी)</div>
+    <h1 class="student-name" id="ui-student-name">कौटिल्य भारद्वाज</h1>
+    <div class="student-eng-name" id="ui-student-eng">Kautilya Bhardwaj</div>
+    <p class="school-info" id="ui-school-info">अमृता जी के लिए विशेष सूची | सिटी कॉन्वेंट स्कूल, अतरौली</p>
   </div>
 
-  <!-- Dynamic Dress Card -->
+  <!-- Dynamic Dress Notice Card (Visible for Pranav) -->
   <div class="dress-notice-card" id="dressNoticeCard">
     <div class="dress-icon" id="dressIcon">👔</div>
     <div>
@@ -447,7 +500,7 @@
     <div class="essentials-title" id="ui-essentials-title">⭐ रोज़ाना साथ जाने वाली ज़रूरी चीज़ें</div>
     <label class="item-row">
       <input type="checkbox" onchange="updateProgress()">
-      <span class="item-label" id="ui-item-pencil">पेंसिल बॉक्स (पेंसिल, रबर, कटर, स्केल)</span>
+      <span class="item-label" id="ui-item-pencil">पेंसिल बॉक्स (2 छिली पेंसिल, रबर, कटर)</span>
     </label>
     <label class="item-row">
       <input type="checkbox" onchange="updateProgress()">
@@ -477,8 +530,8 @@
 <div class="reward-overlay" id="rewardModal">
   <div class="reward-modal">
     <div class="reward-stars">⭐⭐⭐</div>
-    <h3 id="ui-modal-title">शाबाश प्रणव बेटा!</h3>
-    <p id="ui-modal-desc">Class II का पूरा स्कूल बैग 100% परफेक्ट तैयार हो गया है! 👍🎉</p>
+    <h3 id="ui-modal-title">शाबाश बेटा!</h3>
+    <p id="ui-modal-desc">आज का पूरा स्कूल बैग 100% परफेक्ट तैयार हो गया है! 👍🎉</p>
     <button class="btn-reward-close" id="ui-modal-btn" onclick="closeRewardModal()">बहुत बढ़िया! 👍</button>
   </div>
 </div>
@@ -487,13 +540,15 @@
     const CORRECT_SECURITY_PIN = "7017";
     const MY_PHONE_NUMBER = "919458614610";
 
+    let currentStudent = 'kautilya'; // 'kautilya' OR 'pranav'
     let currentLang = 'hi';
     let activeDay = 'mon';
     let hasCelebrated = false;
     let isSpeaking = false;
 
+    // PIN LOCK
     function checkInitialSecurity() {
-      const isDeviceRemembered = localStorage.getItem('pranav_bag_unlocked');
+      const isDeviceRemembered = localStorage.getItem('bhardwaj_bag_unlocked');
       if (isDeviceRemembered === 'true') {
         unlockAppInterface();
       } else {
@@ -511,7 +566,7 @@
 
       if (enteredValue === CORRECT_SECURITY_PIN) {
         if (rememberCheckbox.checked) {
-          localStorage.setItem('pranav_bag_unlocked', 'true');
+          localStorage.setItem('bhardwaj_bag_unlocked', 'true');
         }
         errBox.innerText = "";
         unlockAppInterface();
@@ -534,7 +589,7 @@
     }
 
     function lockAppManually() {
-      localStorage.removeItem('pranav_bag_unlocked');
+      localStorage.removeItem('bhardwaj_bag_unlocked');
       document.getElementById('userPinInput').value = "";
       document.getElementById('pinErrorMessage').innerText = "";
       document.getElementById('pinOverlay').style.display = 'flex';
@@ -554,180 +609,308 @@
       return mapDays[dayIndex];
     }
 
-    const translations = {
+    // STUDENT SWITCH HANDLER
+    function switchStudent(studentKey) {
+      currentStudent = studentKey;
+      stopVoice();
+
+      const tabKautilya = document.getElementById('tab-kautilya');
+      const tabPranav = document.getElementById('tab-pranav');
+      const clockCard = document.getElementById('liveClockCard');
+      const studentImg = document.getElementById('studentImg');
+
+      if (studentKey === 'kautilya') {
+        tabKautilya.classList.add('active');
+        tabKautilya.classList.remove('pranav-active');
+        tabPranav.classList.remove('active', 'pranav-active');
+        clockCard.style.background = 'linear-gradient(135deg, #1e3a8a, #3b82f6)';
+        studentImg.src = 'kautilya.png';
+      } else {
+        tabPranav.classList.add('active', 'pranav-active');
+        tabKautilya.classList.remove('active');
+        clockCard.style.background = 'linear-gradient(135deg, #0f766e, #0d9488)';
+        studentImg.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="92" height="92"><rect fill="%230d9488" width="92" height="92"/><text fill="%23fff" font-size="42" x="50%" y="58%" text-anchor="middle">👦</text></svg>';
+      }
+
+      setLanguage(currentLang);
+    }
+
+    // DATA FOR KAUTILYA (NURSERY)
+    const kautilyaData = {
+      meta: {
+        hi: {
+          tag: "🎒 घर के लिए बैग चेकर (नर्सरी)",
+          name: "कौटिल्य भारद्वाज",
+          eng: "Kautilya Bhardwaj",
+          school: "अमृता जी के लिए विशेष सूची | सिटी कॉन्वेंट स्कूल, अतरौली",
+          cheer: "शाबाश कौटिल्य बेटा! आज का पूरा बैग पैक हो गया है!",
+          modalTitle: "शाबाश कौटिल्य बेटा!",
+          modalDesc: "आज का पूरा स्कूल बैग एकदम परफेक्ट पैक हो गया है। आप बहुत अच्छे बच्चे हो! 🎉🎒",
+          pencilItem: "पेंसिल बॉक्स (2 छिली पेंसिल, रबर, कटर)"
+        },
+        en: {
+          tag: "🎒 Home Bag Checker (Nursery)",
+          name: "Kautilya Bhardwaj",
+          eng: "कौटिल्य भारद्वाज",
+          school: "Special Checklist for Amrita Ji | City Convent School, Atrauli",
+          cheer: "Well done Kautilya! Your school bag is completely ready!",
+          modalTitle: "Well Done Kautilya!",
+          modalDesc: "The school bag is 100% packed and ready. You are a brilliant boy! 🎉🎒",
+          pencilItem: "Pencil Box (2 sharpened pencils, eraser, sharpener)"
+        }
+      },
+      schedule: {
+        mon: {
+          dayName: { hi: "सोमवार", en: "Monday" },
+          btnLabel: { hi: "सोमवार", en: "Monday" },
+          periods: [
+            { name: { hi: "पहला पीरियड", en: "1st Period" }, items: { hi: ["अंग्रेज़ी किताब", "अंग्रेज़ी कॉपी"], en: ["English Book", "English Notebook"] } },
+            { name: { hi: "दूसरा पीरियड", en: "2nd Period" }, items: { hi: ["अंग्रेज़ी किताब", "अंग्रेज़ी कॉपी"], en: ["English Book", "English Notebook"] } },
+            { name: { hi: "तीसरा पीरियड", en: "3rd Period" }, items: { hi: ["गणित कॉपी"], en: ["Maths Notebook"] } },
+            { name: { hi: "चौथा पीरियड", en: "4th Period" }, items: { hi: ["गणित कॉपी"], en: ["Maths Notebook"] } },
+            { break: true },
+            { name: { hi: "पांचवां पीरियड", en: "5th Period" }, items: { hi: ["हिंदी किताब", "हिंदी कॉपी"], en: ["Hindi Book", "Hindi Notebook"] } },
+            { name: { hi: "छठा पीरियड", en: "6th Period" }, items: { hi: ["राइम्स (कविता) किताब"], en: ["Rhymes (Poems) Book"] } }
+          ]
+        },
+        tue: {
+          dayName: { hi: "मंगलवार", en: "Tuesday" },
+          btnLabel: { hi: "मंगलवार", en: "Tuesday" },
+          periods: [
+            { name: { hi: "पहला पीरियड", en: "1st Period" }, items: { hi: ["अंग्रेज़ी किताब", "अंग्रेज़ी कॉपी"], en: ["English Book", "English Notebook"] } },
+            { name: { hi: "दूसरा पीरियड", en: "2nd Period" }, items: { hi: ["अंग्रेज़ी किताब", "अंग्रेज़ी कॉपी"], en: ["English Book", "English Notebook"] } },
+            { name: { hi: "तीसरा पीरियड", en: "3rd Period" }, items: { hi: ["गणित कॉपी"], en: ["Maths Notebook"] } },
+            { name: { hi: "चौथा पीरियड", en: "4th Period" }, items: { hi: ["गणित कॉपी"], en: ["Maths Notebook"] } },
+            { break: true },
+            { name: { hi: "पांचवां पीरियड", en: "5th Period" }, items: { hi: ["हिंदी किताब", "हिंदी कॉपी"], en: ["Hindi Book", "Hindi Notebook"] } },
+            { name: { hi: "छठा पीरियड", en: "6th Period" }, items: { hi: ["राइम्स (कविता) किताब"], en: ["Rhymes (Poems) Book"] } }
+          ]
+        },
+        wed: {
+          dayName: { hi: "बुधवार", en: "Wednesday" },
+          btnLabel: { hi: "बुधवार", en: "Wednesday" },
+          periods: [
+            { name: { hi: "पहला पीरियड", en: "1st Period" }, items: { hi: ["गणित कॉपी"], en: ["Maths Notebook"] } },
+            { name: { hi: "दूसरा पीरियड", en: "2nd Period" }, items: { hi: ["गणित कॉपी"], en: ["Maths Notebook"] } },
+            { name: { hi: "तीसरा पीरियड", en: "3rd Period" }, items: { hi: ["हिंदी किताब", "हिंदी कॉपी"], en: ["Hindi Book", "Hindi Notebook"] } },
+            { name: { hi: "चौथा पीरियड", en: "4th Period" }, items: { hi: ["हिंदी किताब", "हिंदी कॉपी"], en: ["Hindi Book", "Hindi Notebook"] } },
+            { break: true },
+            { name: { hi: "पांचवां पीरियड", en: "5th Period" }, items: { hi: ["अंग्रेज़ी किताब", "अंग्रेज़ी कॉपी"], en: ["English Book", "English Notebook"] } },
+            { name: { hi: "छठा पीरियड", en: "6th Period" }, items: { hi: ["राइम्स (कविता) किताब"], en: ["Rhymes (Poems) Book"] } }
+          ]
+        },
+        thu: {
+          dayName: { hi: "गुरुवार", en: "Thursday" },
+          btnLabel: { hi: "गुरुवार", en: "Thursday" },
+          periods: [
+            { name: { hi: "पहला पीरियड", en: "1st Period" }, items: { hi: ["अंग्रेज़ी किताब", "अंग्रेज़ी कॉपी"], en: ["English Book", "English Notebook"] } },
+            { name: { hi: "दूसरा पीरियड", en: "2nd Period" }, items: { hi: ["अंग्रेज़ी किताब", "अंग्रेज़ी कॉपी"], en: ["English Book", "English Notebook"] } },
+            { name: { hi: "तीसरा पीरियड", en: "3rd Period" }, items: { hi: ["हिंदी किताब", "हिंदी कॉपी"], en: ["Hindi Book", "Hindi Notebook"] } },
+            { name: { hi: "चौथा पीरियड", en: "4th Period" }, items: { hi: ["हिंदी किताब", "हिंदी कॉपी"], en: ["Hindi Book", "Hindi Notebook"] } },
+            { break: true },
+            { name: { hi: "पांचवां पीरियड", en: "5th Period" }, items: { hi: ["गणित कॉपी"], en: ["Maths Notebook"] } },
+            { name: { hi: "छठा पीरियड", en: "6th Period" }, items: { hi: ["राइम्स (कविता) किताब"], en: ["Rhymes (Poems) Book"] } }
+          ]
+        },
+        fri: {
+          dayName: { hi: "शुक्रवार", en: "Friday" },
+          btnLabel: { hi: "शुक्रवार", en: "Friday" },
+          periods: [
+            { name: { hi: "पहला पीरियड", en: "1st Period" }, items: { hi: ["अंग्रेज़ी राइटिंग बुक"], en: ["English Writing Book"] } },
+            { name: { hi: "दूसरा पीरियड", en: "2nd Period" }, items: { hi: ["अंग्रेज़ी राइटिंग बुक"], en: ["English Writing Book"] } },
+            { name: { hi: "तीसरा पीरियड", en: "3rd Period" }, items: { hi: ["हिंदी राइटिंग बुक"], en: ["Hindi Writing Book"] } },
+            { name: { hi: "चौथा पीरियड", en: "4th Period" }, items: { hi: ["गणित राइटिंग बुक"], en: ["Maths Writing Book"] } },
+            { break: true },
+            { name: { hi: "पांचवां पीरियड", en: "5th Period" }, items: { hi: ["खेलकूद (Games - कोई किताब नहीं)"], en: ["Games Period (No Book)"] } },
+            { name: { hi: "छठा पीरियड", en: "6th Period" }, items: { hi: ["सामान्य ज्ञान (G.K. - मौखिक)"], en: ["General Knowledge (Oral)"] } }
+          ]
+        },
+        sat: {
+          dayName: { hi: "शनिवार", en: "Saturday" },
+          btnLabel: { hi: "शनिवार", en: "Saturday" },
+          periods: [
+            { name: { hi: "पहला पीरियड", en: "1st Period" }, items: { hi: ["अंग्रेज़ी राइटिंग बुक"], en: ["English Writing Book"] } },
+            { name: { hi: "दूसरा पीरियड", en: "2nd Period" }, items: { hi: ["अंग्रेज़ी राइटिंग बुक"], en: ["English Writing Book"] } },
+            { name: { hi: "तीसरा पीरियड", en: "3rd Period" }, items: { hi: ["हिंदी राइटिंग बुक"], en: ["Hindi Writing Book"] } },
+            { name: { hi: "चौथा पीरियड", en: "4th Period" }, items: { hi: ["गणित राइटिंग बुक"], en: ["Maths Writing Book"] } },
+            { break: true },
+            { name: { hi: "पांचवां पीरियड", en: "5th Period" }, items: { hi: ["ड्राइंग बुक + मोम वाले रंग"], en: ["Drawing Book + Crayon Colors"] } },
+            { name: { hi: "छठा पीरियड", en: "6th Period" }, items: { hi: ["सामान्य ज्ञान (G.K. - मौखिक)"], en: ["General Knowledge (Oral)"] } }
+          ]
+        },
+        sun: {
+          dayName: { hi: "रविवार", en: "Sunday" },
+          btnLabel: { hi: "🛑 रविवार (स्कूल का अवकाश / छुट्टी)", en: "🛑 Sunday (School Holiday)" }
+        }
+      }
+    };
+
+    // DATA FOR PRANAV (CLASS 2)
+    const pranavData = {
+      meta: {
+        hi: {
+          tag: "🎒 घर के लिए बैग चेकर (CLASS 2)",
+          name: "प्रणव भारद्वाज",
+          eng: "Pranav Bhardwaj (Class II)",
+          school: "अमृता जी के लिए विशेष सूची | सेशन 2026-27",
+          cheer: "शाबाश प्रणव बेटा! आज का पूरा स्कूल बैग 100% परफेक्ट तैयार हो गया है!",
+          modalTitle: "शाबाश प्रणव बेटा!",
+          modalDesc: "Class II का पूरा स्कूल बैग एकदम परफेक्ट तैयार हो गया है! 👍🎉",
+          pencilItem: "पेंसिल बॉक्स (पेंसिल, रबर, कटर, स्केल)"
+        },
+        en: {
+          tag: "🎒 Home Bag Checker (Class 2)",
+          name: "Pranav Bhardwaj",
+          eng: "प्रणव भारद्वाज",
+          school: "Special Checklist for Amrita Ji | Session 2026-27",
+          cheer: "Well done Pranav! Your school bag is completely ready!",
+          modalTitle: "Well Done Pranav!",
+          modalDesc: "Class II school bag is 100% packed and ready! 👍🎉",
+          pencilItem: "Pencil Box (Pencil, Eraser, Sharpener, Scale)"
+        }
+      },
+      schedule: {
+        mon: {
+          dayName: { hi: "सोमवार", en: "Monday" },
+          btnLabel: { hi: "सोमवार", en: "Monday" },
+          dress: { hi: "👔 रेगुलर स्कूल यूनिफॉर्म (Regular School Uniform)", en: "👔 Regular School Uniform" },
+          periods: [
+            { name: { hi: "पहला पीरियड (English)", en: "1st Period (English)" }, items: { hi: ["English Reader Book", "English Copy 1"], en: ["English Reader Book", "English Copy 1"] } },
+            { name: { hi: "दूसरा पीरियड (EVS)", en: "2nd Period (EVS)" }, items: { hi: ["EVS Book", "EVS Copy 4"], en: ["EVS Book", "EVS Copy 4"] } },
+            { name: { hi: "तीसरा पीरियड (Hindi)", en: "3rd Period (Hindi)" }, items: { hi: ["Hindi Reader Book", "Hindi Copy 1"], en: ["Hindi Reader Book", "Hindi Copy 1"] } },
+            { name: { hi: "चौथा पीरियड (Maths)", en: "4th Period (Maths)" }, items: { hi: ["Maths H.W. Copy", "Maths C.W. Copy"], en: ["Maths H.W. Copy", "Maths C.W. Copy"] } },
+            { break: true },
+            { name: { hi: "पांचवां पीरियड (English)", en: "5th Period (English)" }, items: { hi: ["English Writing + Dict. Copy 3"], en: ["English Writing + Dict. Copy 3"] } },
+            { name: { hi: "छठा पीरियड (G.K.)", en: "6th Period (G.K.)" }, items: { hi: ["G.K. Book", "G.K. Copy 5"], en: ["G.K. Book", "G.K. Copy 5"] } },
+            { name: { hi: "सातवां पीरियड (Moral Sc.)", en: "7th Period (Moral Sc.)" }, items: { hi: ["Moral Science Book", "Moral Science Copy 6"], en: ["Moral Science Book", "Moral Science Copy 6"] } }
+          ]
+        },
+        tue: {
+          dayName: { hi: "मंगलवार", en: "Tuesday" },
+          btnLabel: { hi: "मंगलवार", en: "Tuesday" },
+          dress: { hi: "👔 रेगुलर स्कूल यूनिफॉर्म (Regular School Uniform)", en: "👔 Regular School Uniform" },
+          periods: [
+            { name: { hi: "पहला पीरियड (English)", en: "1st Period (English)" }, items: { hi: ["English Reader Book", "English Copy 1"], en: ["English Reader Book", "English Copy 1"] } },
+            { name: { hi: "दूसरा पीरियड (EVS)", en: "2nd Period (EVS)" }, items: { hi: ["EVS Book", "EVS Copy 4"], en: ["EVS Book", "EVS Copy 4"] } },
+            { name: { hi: "तीसरा पीरियड (Hindi)", en: "3rd Period (Hindi)" }, items: { hi: ["Hindi Reader Book", "Hindi Copy 1"], en: ["Hindi Reader Book", "Hindi Copy 1"] } },
+            { name: { hi: "चौथा पीरियड (Maths)", en: "4th Period (Maths)" }, items: { hi: ["Maths H.W. Copy", "Maths C.W. Copy"], en: ["Maths H.W. Copy", "Maths C.W. Copy"] } },
+            { break: true },
+            { name: { hi: "पांचवां पीरियड (English)", en: "5th Period (English)" }, items: { hi: ["English Writing + Dict. Copy 3"], en: ["English Writing + Dict. Copy 3"] } },
+            { name: { hi: "छठा पीरियड (G.K.)", en: "6th Period (G.K.)" }, items: { hi: ["G.K. Book", "G.K. Copy 5"], en: ["G.K. Book", "G.K. Copy 5"] } },
+            { name: { hi: "सातवां पीरियड (Moral Sc.)", en: "7th Period (Moral Sc.)" }, items: { hi: ["Moral Science Book", "Moral Science Copy 6"], en: ["Moral Science Book", "Moral Science Copy 6"] } }
+          ]
+        },
+        wed: {
+          dayName: { hi: "बुधवार", en: "Wednesday" },
+          btnLabel: { hi: "बुधवार", en: "Wednesday" },
+          dress: { hi: "👕 ब्लू टी-शर्ट + 👖 व्हाइट पैंट + 👟 व्हाइट सॉक्स व शूज़ (House/PT Dress)", en: "👕 Blue T-shirt + 👖 White Pant + 👟 White Socks & Shoes" },
+          periods: [
+            { name: { hi: "पहला पीरियड (English)", en: "1st Period (English)" }, items: { hi: ["English Reader Book", "English Copy 1"], en: ["English Reader Book", "English Copy 1"] } },
+            { name: { hi: "दूसरा पीरियड (EVS)", en: "2nd Period (EVS)" }, items: { hi: ["EVS Book", "EVS Copy 4"], en: ["EVS Book", "EVS Copy 4"] } },
+            { name: { hi: "तीसरा पीरियड (Hindi)", en: "3rd Period (Hindi)" }, items: { hi: ["Hindi Reader Book", "Hindi Copy 1"], en: ["Hindi Reader Book", "Hindi Copy 1"] } },
+            { name: { hi: "चौथा पीरियड (Maths)", en: "4th Period (Maths)" }, items: { hi: ["Maths H.W. Copy", "Maths C.W. Copy"], en: ["Maths H.W. Copy", "Maths C.W. Copy"] } },
+            { break: true },
+            { name: { hi: "पांचवां पीरियड (Hindi)", en: "5th Period (Hindi)" }, items: { hi: ["Hindi Writing + Dict. Copy 3"], en: ["Hindi Writing + Dict. Copy 3"] } },
+            { name: { hi: "छठा पीरियड (G.K.)", en: "6th Period (G.K.)" }, items: { hi: ["G.K. Book", "G.K. Copy 5"], en: ["G.K. Book", "G.K. Copy 5"] } },
+            { name: { hi: "सातवां पीरियड (Moral Sc.)", en: "7th Period (Moral Sc.)" }, items: { hi: ["Moral Science Book", "Moral Science Copy 6"], en: ["Moral Science Book", "Moral Science Copy 6"] } }
+          ]
+        },
+        thu: {
+          dayName: { hi: "गुरुवार", en: "Thursday" },
+          btnLabel: { hi: "गुरुवार", en: "Thursday" },
+          dress: { hi: "👔 रेगुलर स्कूल यूनिफॉर्म (Regular School Uniform)", en: "👔 Regular School Uniform" },
+          periods: [
+            { name: { hi: "पहला पीरियड (English)", en: "1st Period (English)" }, items: { hi: ["English Grammar Copy 2"], en: ["English Grammar Copy 2"] } },
+            { name: { hi: "दूसरा पीरियड (EVS)", en: "2nd Period (EVS)" }, items: { hi: ["EVS Book", "EVS Copy 4"], en: ["EVS Book", "EVS Copy 4"] } },
+            { name: { hi: "तीसरा पीरियड (Hindi)", en: "3rd Period (Hindi)" }, items: { hi: ["Hindi Grammar Copy 2"], en: ["Hindi Grammar Copy 2"] } },
+            { name: { hi: "चौथा पीरियड (Maths)", en: "4th Period (Maths)" }, items: { hi: ["Maths H.W. Copy", "Maths C.W. Copy"], en: ["Maths H.W. Copy", "Maths C.W. Copy"] } },
+            { break: true },
+            { name: { hi: "पांचवां पीरियड (Hindi)", en: "5th Period (Hindi)" }, items: { hi: ["Hindi Writing + Dict. Copy 3"], en: ["Hindi Writing + Dict. Copy 3"] } },
+            { name: { hi: "छठा पीरियड (G.K.)", en: "6th Period (G.K.)" }, items: { hi: ["G.K. Book", "G.K. Copy 5"], en: ["G.K. Book", "G.K. Copy 5"] } },
+            { name: { hi: "सातवां पीरियड (Moral Sc.)", en: "7th Period (Moral Sc.)" }, items: { hi: ["Moral Science Book", "Moral Science Copy 6"], en: ["Moral Science Book", "Moral Science Copy 6"] } }
+          ]
+        },
+        fri: {
+          dayName: { hi: "शुक्रवार", en: "Friday" },
+          btnLabel: { hi: "शुक्रवार", en: "Friday" },
+          dress: { hi: "👔 रेगुलर स्कूल यूनिफॉर्म (Regular School Uniform)", en: "👔 Regular School Uniform" },
+          periods: [
+            { name: { hi: "पहला पीरियड (English)", en: "1st Period (English)" }, items: { hi: ["English Grammar Copy 2"], en: ["English Grammar Copy 2"] } },
+            { name: { hi: "दूसरा पीरियड (EVS)", en: "2nd Period (EVS)" }, items: { hi: ["EVS Book", "EVS Copy 4"], en: ["EVS Book", "EVS Copy 4"] } },
+            { name: { hi: "तीसरा पीरियड (Hindi)", en: "3rd Period (Hindi)" }, items: { hi: ["Hindi Grammar Copy 2"], en: ["Hindi Grammar Copy 2"] } },
+            { name: { hi: "चौथा पीरियड (Maths)", en: "4th Period (Maths)" }, items: { hi: ["Maths Book"], en: ["Maths Book"] } },
+            { break: true },
+            { name: { hi: "पांचवां पीरियड (English)", en: "5th Period (English)" }, items: { hi: ["English Book Reading"], en: ["English Book Reading"] } },
+            { name: { hi: "छठा पीरियड (Reading)", en: "6th Period (Reading)" }, items: { hi: ["Book Time (Reading)"], en: ["Book Time (Reading)"] } },
+            { name: { hi: "सातवां पीरियड (Activity)", en: "7th Period (Activity)" }, items: { hi: ["Activity Notebook / Material"], en: ["Activity Notebook / Material"] } }
+          ]
+        },
+        sat: {
+          dayName: { hi: "शनिवार", en: "Saturday" },
+          btnLabel: { hi: "शनिवार", en: "Saturday" },
+          dress: { hi: "👕 ब्लू टी-शर्ट + 👖 व्हाइट पैंट + 👟 व्हाइट सॉक्स व शूज़ (House/PT Dress)", en: "👕 Blue T-shirt + 👖 White Pant + 👟 White Socks & Shoes" },
+          periods: [
+            { name: { hi: "पहला पीरियड (English)", en: "1st Period (English)" }, items: { hi: ["English Grammar Copy 2"], en: ["English Grammar Copy 2"] } },
+            { name: { hi: "दूसरा पीरियड (EVS)", en: "2nd Period (EVS)" }, items: { hi: ["EVS Book", "EVS Copy 4"], en: ["EVS Book", "EVS Copy 4"] } },
+            { name: { hi: "तीसरा पीरियड (Hindi)", en: "3rd Period (Hindi)" }, items: { hi: ["Hindi Grammar Copy 2"], en: ["Hindi Grammar Copy 2"] } },
+            { name: { hi: "चौथा पीरियड (Maths)", en: "4th Period (Maths)" }, items: { hi: ["Maths Book"], en: ["Maths Book"] } },
+            { break: true },
+            { name: { hi: "पांचवां पीरियड (Activity)", en: "5th Period (Activity)" }, items: { hi: ["CCA Activity Material"], en: ["CCA Activity Material"] } },
+            { name: { hi: "छठा पीरियड (Drawing Book)", en: "6th Period (Drawing Book)" }, items: { hi: ["Drawing Book", "Crayon/Color Box"], en: ["Drawing Book", "Crayon/Color Box"] } },
+            { name: { hi: "सातवां पीरियड (Drawing File)", en: "7th Period (Drawing File)" }, items: { hi: ["Drawing File", "Crayon/Color Box"], en: ["Drawing File", "Crayon/Color Box"] } }
+          ]
+        },
+        sun: {
+          dayName: { hi: "रविवार", en: "Sunday" },
+          btnLabel: { hi: "🛑 रविवार (स्कूल का अवकाश / छुट्टी)", en: "🛑 Sunday (School Holiday)" }
+        }
+      }
+    };
+
+    const commonTranslations = {
       hi: {
-        checkerTag: "🎒 घर के लिए बैग चेकर (CLASS 2)",
-        studentName: "प्रणव भारद्वाज",
-        studentEng: "Pranav Bhardwaj (Class II)",
-        schoolInfo: "अमृता जी के लिए विशेष सूची | सेशन 2026-27",
         todayBadge: "⭐ आज",
         voiceBtnDefault: "आज का बैग बोलकर सुनें",
         voiceBtnSpeaking: "बोल रहा है... (रोकने के लिए दबाएं)",
         progressText: (chk, tot, pct) => `पैकिंग प्रगति: ${chk} / ${tot} पैक हुआ (${pct}%)`,
         resetBtn: "🔄 रीसेट करें",
         periodPrefix: "📚 ",
-        recessText: "🥪 रिसेस / लंच ब्रेक (RECESS TIME)",
+        breakText: "🥪 लंच / ब्रेक (BREAK TIME)",
         essentialsTitle: "⭐ रोज़ाना साथ जाने वाली ज़रूरी चीज़ें",
-        itemPencil: "पेंसिल बॉक्स (पेंसिल, रबर, कटर, स्केल)",
         itemTiffin: "टिफिन (Lunch Box)",
         itemBottle: "पानी की बोतल (Water Bottle)",
         btnSubmit: "बैग पैक हो गया - सूचित करें",
         sunTitle: "आज रविवार है - स्कूल की छुट्टी है!",
-        sunDesc: "आज स्कूल का अवकाश है। प्रणव के बैग में आज कोई किताब-कॉपी रखने की आवश्यकता नहीं है। आराम और मस्ती का दिन!",
-        modalTitle: "शाबाश प्रणव बेटा!",
-        modalDesc: "Class II का पूरा स्कूल बैग 100% परफेक्ट तैयार हो गया है! 👍🎉",
+        sunDesc: "आज स्कूल का अवकाश है। बैग में आज कोई किताब-कॉपी रखने की आवश्यकता नहीं है। आराम और मस्ती का दिन!",
         modalBtn: "बहुत बढ़िया! 👍",
-        speechCheer: "शाबाश प्रणव बेटा! आज का स्कूल बैग बिल्कुल तैयार है!",
         speechSunday: "आज रविवार है। स्कूल की छुट्टी है। बैग पैक करने की ज़रूरत नहीं है।",
-        speechIntro: (dayName, dress, items) => `नमस्ते अमृता जी! आज ${dayName} है। आज की ड्रेस है: ${dress}। प्रणव के बैग में जाने वाली चीज़ें हैं: ${items}।`,
         alertWrongDay: (todayName) => `⚠️ ध्यान दें: आज ${todayName} है! आप सिर्फ आज के दिन का ही बैग अपडेट व्हाट्सएप पर भेज सकते हैं।`,
         alertIncomplete: "⚠️ कृपया पहले बैग का सारा सामान पैक करके सभी बॉक्स पर टिक लगाएं, तभी सूचना भेजी जा सकती है।"
       },
       en: {
-        checkerTag: "🎒 Home Bag Checker (Class 2)",
-        studentName: "Pranav Bhardwaj",
-        studentEng: "प्रणव भारद्वाज",
-        schoolInfo: "Special Checklist for Amrita Ji | Session 2026-27",
         todayBadge: "⭐ TODAY",
         voiceBtnDefault: "Listen Bag Items via Audio",
         voiceBtnSpeaking: "Speaking... (Tap to stop)",
         progressText: (chk, tot, pct) => `Packing Progress: ${chk} / ${tot} Packed (${pct}%)`,
         resetBtn: "🔄 Reset All",
         periodPrefix: "📚 Period ",
-        recessText: "🥪 RECESS / LUNCH BREAK",
+        breakText: "🥪 LUNCH / BREAK TIME",
         essentialsTitle: "⭐ DAILY ESSENTIAL ITEMS",
-        itemPencil: "Pencil Box (Pencil, Eraser, Sharpener, Scale)",
         itemTiffin: "Lunch Box (Tiffin)",
         itemBottle: "Water Bottle",
         btnSubmit: "Bag Packed - Send WhatsApp Update",
         sunTitle: "Today is Sunday - School Holiday!",
         sunDesc: "Today is an official school holiday. No need to pack books or notebooks today. Enjoy your Sunday!",
-        modalTitle: "Well Done Pranav!",
-        modalDesc: "Class II school bag is 100% packed and ready! 👍🎉",
         modalBtn: "Awesome! 👍",
-        speechCheer: "Well done Pranav! Your school bag is completely ready!",
         speechSunday: "Today is Sunday. It is a school holiday. No need to pack the bag today.",
-        speechIntro: (dayName, dress, items) => `Hello Amrita ji! Today is ${dayName}. Today's uniform is: ${dress}. Items to pack in Pranav's bag are: ${items}.`,
         alertWrongDay: (todayName) => `⚠️ Note: Today is ${todayName}! You can only send bag packing updates for today's active schedule.`,
         alertIncomplete: "⚠️ Please check all items (100% pack) before sending the WhatsApp status."
       }
     };
 
-    // Class 2 Exact Schedule with full details for Wednesday
-    const scheduleData = {
-      mon: {
-        dayName: { hi: "सोमवार", en: "Monday" },
-        btnLabel: { hi: "सोमवार", en: "Monday" },
-        dress: {
-          hi: "👔 रेगुलर स्कूल यूनिफॉर्म (Regular School Uniform)",
-          en: "👔 Regular School Uniform"
-        },
-        periods: [
-          { name: { hi: "पहला पीरियड (English)", en: "1st Period (English)" }, items: { hi: ["English Reader Book", "English Copy 1"], en: ["English Reader Book", "English Copy 1"] } },
-          { name: { hi: "दूसरा पीरियड (EVS)", en: "2nd Period (EVS)" }, items: { hi: ["EVS Book", "EVS Copy 4"], en: ["EVS Book", "EVS Copy 4"] } },
-          { name: { hi: "तीसरा पीरियड (Hindi)", en: "3rd Period (Hindi)" }, items: { hi: ["Hindi Reader Book", "Hindi Copy 1"], en: ["Hindi Reader Book", "Hindi Copy 1"] } },
-          { name: { hi: "चौथा पीरियड (Maths)", en: "4th Period (Maths)" }, items: { hi: ["Maths H.W. Copy", "Maths C.W. Copy"], en: ["Maths H.W. Copy", "Maths C.W. Copy"] } },
-          { recess: true },
-          { name: { hi: "पांचवां पीरियड (English)", en: "5th Period (English)" }, items: { hi: ["English Writing + Dict. Copy 3"], en: ["English Writing + Dict. Copy 3"] } },
-          { name: { hi: "छठा पीरियड (G.K.)", en: "6th Period (G.K.)" }, items: { hi: ["G.K. Book", "G.K. Copy 5"], en: ["G.K. Book", "G.K. Copy 5"] } },
-          { name: { hi: "सातवां पीरियड (Moral Sc.)", en: "7th Period (Moral Sc.)" }, items: { hi: ["Moral Science Book", "Moral Science Copy 6"], en: ["Moral Science Book", "Moral Science Copy 6"] } }
-        ]
-      },
-      tue: {
-        dayName: { hi: "मंगलवार", en: "Tuesday" },
-        btnLabel: { hi: "मंगलवार", en: "Tuesday" },
-        dress: {
-          hi: "👔 रेगुलर स्कूल यूनिफॉर्म (Regular School Uniform)",
-          en: "👔 Regular School Uniform"
-        },
-        periods: [
-          { name: { hi: "पहला पीरियड (English)", en: "1st Period (English)" }, items: { hi: ["English Reader Book", "English Copy 1"], en: ["English Reader Book", "English Copy 1"] } },
-          { name: { hi: "दूसरा पीरियड (EVS)", en: "2nd Period (EVS)" }, items: { hi: ["EVS Book", "EVS Copy 4"], en: ["EVS Book", "EVS Copy 4"] } },
-          { name: { hi: "तीसरा पीरियड (Hindi)", en: "3rd Period (Hindi)" }, items: { hi: ["Hindi Reader Book", "Hindi Copy 1"], en: ["Hindi Reader Book", "Hindi Copy 1"] } },
-          { name: { hi: "चौथा पीरियड (Maths)", en: "4th Period (Maths)" }, items: { hi: ["Maths H.W. Copy", "Maths C.W. Copy"], en: ["Maths H.W. Copy", "Maths C.W. Copy"] } },
-          { recess: true },
-          { name: { hi: "पांचवां पीरियड (English)", en: "5th Period (English)" }, items: { hi: ["English Writing + Dict. Copy 3"], en: ["English Writing + Dict. Copy 3"] } },
-          { name: { hi: "छठा पीरियड (G.K.)", en: "6th Period (G.K.)" }, items: { hi: ["G.K. Book", "G.K. Copy 5"], en: ["G.K. Book", "G.K. Copy 5"] } },
-          { name: { hi: "सातवां पीरियड (Moral Sc.)", en: "7th Period (Moral Sc.)" }, items: { hi: ["Moral Science Book", "Moral Science Copy 6"], en: ["Moral Science Book", "Moral Science Copy 6"] } }
-        ]
-      },
-      wed: {
-        dayName: { hi: "बुधवार", en: "Wednesday" },
-        btnLabel: { hi: "बुधवार", en: "Wednesday" },
-        dress: {
-          hi: "👕 ब्लू टी-शर्ट + 👖 व्हाइट पैंट + 👟 व्हाइट सॉक्स व शूज़ (House/PT Dress)",
-          en: "👕 Blue T-shirt + 👖 White Pant + 👟 White Socks & Shoes"
-        },
-        periods: [
-          { name: { hi: "पहला पीरियड (English)", en: "1st Period (English)" }, items: { hi: ["English Reader Book", "English Copy 1"], en: ["English Reader Book", "English Copy 1"] } },
-          { name: { hi: "दूसरा पीरियड (EVS)", en: "2nd Period (EVS)" }, items: { hi: ["EVS Book", "EVS Copy 4"], en: ["EVS Book", "EVS Copy 4"] } },
-          { name: { hi: "तीसरा पीरियड (Hindi)", en: "3rd Period (Hindi)" }, items: { hi: ["Hindi Reader Book", "Hindi Copy 1"], en: ["Hindi Reader Book", "Hindi Copy 1"] } },
-          { name: { hi: "चौथा पीरियड (Maths)", en: "4th Period (Maths)" }, items: { hi: ["Maths H.W. Copy", "Maths C.W. Copy"], en: ["Maths H.W. Copy", "Maths C.W. Copy"] } },
-          { recess: true },
-          { name: { hi: "पांचवां पीरियड (Hindi)", en: "5th Period (Hindi)" }, items: { hi: ["Hindi Writing + Dict. Copy 3"], en: ["Hindi Writing + Dict. Copy 3"] } },
-          { name: { hi: "छठा पीरियड (G.K.)", en: "6th Period (G.K.)" }, items: { hi: ["G.K. Book", "G.K. Copy 5"], en: ["G.K. Book", "G.K. Copy 5"] } },
-          { name: { hi: "सातवां पीरियड (Moral Sc.)", en: "7th Period (Moral Sc.)" }, items: { hi: ["Moral Science Book", "Moral Science Copy 6"], en: ["Moral Science Book", "Moral Science Copy 6"] } }
-        ]
-      },
-      thu: {
-        dayName: { hi: "गुरुवार", en: "Thursday" },
-        btnLabel: { hi: "गुरुवार", en: "Thursday" },
-        dress: {
-          hi: "👔 रेगुलर स्कूल यूनिफॉर्म (Regular School Uniform)",
-          en: "👔 Regular School Uniform"
-        },
-        periods: [
-          { name: { hi: "पहला पीरियड (English)", en: "1st Period (English)" }, items: { hi: ["English Grammar Copy 2"], en: ["English Grammar Copy 2"] } },
-          { name: { hi: "दूसरा पीरियड (EVS)", en: "2nd Period (EVS)" }, items: { hi: ["EVS Book", "EVS Copy 4"], en: ["EVS Book", "EVS Copy 4"] } },
-          { name: { hi: "तीसरा पीरियड (Hindi)", en: "3rd Period (Hindi)" }, items: { hi: ["Hindi Grammar Copy 2"], en: ["Hindi Grammar Copy 2"] } },
-          { name: { hi: "चौथा पीरियड (Maths)", en: "4th Period (Maths)" }, items: { hi: ["Maths H.W. Copy", "Maths C.W. Copy"], en: ["Maths H.W. Copy", "Maths C.W. Copy"] } },
-          { recess: true },
-          { name: { hi: "पांचवां पीरियड (Hindi)", en: "5th Period (Hindi)" }, items: { hi: ["Hindi Writing + Dict. Copy 3"], en: ["Hindi Writing + Dict. Copy 3"] } },
-          { name: { hi: "छठा पीरियड (G.K.)", en: "6th Period (G.K.)" }, items: { hi: ["G.K. Book", "G.K. Copy 5"], en: ["G.K. Book", "G.K. Copy 5"] } },
-          { name: { hi: "सातवां पीरियड (Moral Sc.)", en: "7th Period (Moral Sc.)" }, items: { hi: ["Moral Science Book", "Moral Science Copy 6"], en: ["Moral Science Book", "Moral Science Copy 6"] } }
-        ]
-      },
-      fri: {
-        dayName: { hi: "शुक्रवार", en: "Friday" },
-        btnLabel: { hi: "शुक्रवार", en: "Friday" },
-        dress: {
-          hi: "👔 रेगुलर स्कूल यूनिफॉर्म (Regular School Uniform)",
-          en: "👔 Regular School Uniform"
-        },
-        periods: [
-          { name: { hi: "पहला पीरियड (English)", en: "1st Period (English)" }, items: { hi: ["English Grammar Copy 2"], en: ["English Grammar Copy 2"] } },
-          { name: { hi: "दूसरा पीरियड (EVS)", en: "2nd Period (EVS)" }, items: { hi: ["EVS Book", "EVS Copy 4"], en: ["EVS Book", "EVS Copy 4"] } },
-          { name: { hi: "तीसरा पीरियड (Hindi)", en: "3rd Period (Hindi)" }, items: { hi: ["Hindi Grammar Copy 2"], en: ["Hindi Grammar Copy 2"] } },
-          { name: { hi: "चौथा पीरियड (Maths)", en: "4th Period (Maths)" }, items: { hi: ["Maths Book"], en: ["Maths Book"] } },
-          { recess: true },
-          { name: { hi: "पांचवां पीरियड (English)", en: "5th Period (English)" }, items: { hi: ["English Book Reading"], en: ["English Book Reading"] } },
-          { name: { hi: "छठा पीरियड (Reading)", en: "6th Period (Reading)" }, items: { hi: ["Book Time (Reading)"], en: ["Book Time (Reading)"] } },
-          { name: { hi: "सातवां पीरियड (Activity)", en: "7th Period (Activity)" }, items: { hi: ["Activity Notebook / Material"], en: ["Activity Notebook / Material"] } }
-        ]
-      },
-      sat: {
-        dayName: { hi: "शनिवार", en: "Saturday" },
-        btnLabel: { hi: "शनिवार", en: "Saturday" },
-        dress: {
-          hi: "👕 ब्लू टी-शर्ट + 👖 व्हाइट पैंट + 👟 व्हाइट सॉक्स व शूज़ (House/PT Dress)",
-          en: "👕 Blue T-shirt + 👖 White Pant + 👟 White Socks & Shoes"
-        },
-        periods: [
-          { name: { hi: "पहला पीरियड (English)", en: "1st Period (English)" }, items: { hi: ["English Grammar Copy 2"], en: ["English Grammar Copy 2"] } },
-          { name: { hi: "दूसरा पीरियड (EVS)", en: "2nd Period (EVS)" }, items: { hi: ["EVS Book", "EVS Copy 4"], en: ["EVS Book", "EVS Copy 4"] } },
-          { name: { hi: "तीसरा पीरियड (Hindi)", en: "3rd Period (Hindi)" }, items: { hi: ["Hindi Grammar Copy 2"], en: ["Hindi Grammar Copy 2"] } },
-          { name: { hi: "चौथा पीरियड (Maths)", en: "4th Period (Maths)" }, items: { hi: ["Maths Book"], en: ["Maths Book"] } },
-          { recess: true },
-          { name: { hi: "पांचवां पीरियड (Activity)", en: "5th Period (Activity)" }, items: { hi: ["CCA Activity Material"], en: ["CCA Activity Material"] } },
-          { name: { hi: "छठा पीरियड (Drawing Book)", en: "6th Period (Drawing Book)" }, items: { hi: ["Drawing Book", "Crayon/Color Box"], en: ["Drawing Book", "Crayon/Color Box"] } },
-          { name: { hi: "सातवां पीरियड (Drawing File)", en: "7th Period (Drawing File)" }, items: { hi: ["Drawing File", "Crayon/Color Box"], en: ["Drawing File", "Crayon/Color Box"] } }
-        ]
-      },
-      sun: {
-        dayName: { hi: "रविवार", en: "Sunday" },
-        btnLabel: { hi: "🛑 रविवार (स्कूल का अवकाश / छुट्टी)", en: "🛑 Sunday (School Holiday)" }
-      }
-    };
+    function getCurrentDataset() {
+      return currentStudent === 'kautilya' ? kautilyaData : pranavData;
+    }
 
     function setLanguage(lang) {
       currentLang = lang;
@@ -736,29 +919,32 @@
       document.getElementById('btn-lang-hi').classList.toggle('active', lang === 'hi');
       document.getElementById('btn-lang-en').classList.toggle('active', lang === 'en');
 
-      const t = translations[lang];
+      const activeDataset = getCurrentDataset();
+      const meta = activeDataset.meta[lang];
+      const t = commonTranslations[lang];
+
       document.getElementById('ui-day-tag').innerText = lang === 'hi' ? "📅 आज का दिन" : "📅 TODAY'S DATE";
-      document.getElementById('ui-checker-tag').innerText = t.checkerTag;
-      document.getElementById('ui-student-name').innerText = t.studentName;
-      document.getElementById('ui-student-eng').innerText = t.studentEng;
-      document.getElementById('ui-school-info').innerText = t.schoolInfo;
+      document.getElementById('ui-checker-tag').innerText = meta.tag;
+      document.getElementById('ui-student-name').innerText = meta.name;
+      document.getElementById('ui-student-eng').innerText = meta.eng;
+      document.getElementById('ui-school-info').innerText = meta.school;
       document.getElementById('ui-reset-btn').innerText = t.resetBtn;
       document.getElementById('voice-btn-text').innerText = t.voiceBtnDefault;
       document.getElementById('ui-essentials-title').innerText = t.essentialsTitle;
-      document.getElementById('ui-item-pencil').innerText = t.itemPencil;
+      document.getElementById('ui-item-pencil').innerText = meta.pencilItem;
       document.getElementById('ui-item-tiffin').innerText = t.itemTiffin;
       document.getElementById('ui-item-bottle').innerText = t.itemBottle;
       document.getElementById('ui-btn-submit-text').innerText = t.btnSubmit;
 
-      document.getElementById('ui-modal-title').innerText = t.modalTitle;
-      document.getElementById('ui-modal-desc').innerText = t.modalDesc;
+      document.getElementById('ui-modal-title').innerText = meta.modalTitle;
+      document.getElementById('ui-modal-desc').innerText = meta.modalDesc;
       document.getElementById('ui-modal-btn').innerText = t.modalBtn;
 
       ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'].forEach(k => {
         const btn = document.getElementById(`btn-${k}`);
         if (btn) {
           const badge = btn.querySelector('.today-badge');
-          btn.innerText = scheduleData[k].btnLabel[lang];
+          btn.innerText = activeDataset.schedule[k].btnLabel[lang];
           if (badge) {
             badge.innerText = t.todayBadge;
             btn.appendChild(badge);
@@ -808,7 +994,8 @@
       const submitWrapper = document.getElementById('submit-wrapper');
       const voiceWrapper = document.getElementById('voice-wrapper');
       const dressNoticeCard = document.getElementById('dressNoticeCard');
-      const t = translations[currentLang];
+      const t = commonTranslations[currentLang];
+      const activeDataset = getCurrentDataset();
 
       container.innerHTML = '';
 
@@ -833,32 +1020,37 @@
       essentialsCard.style.display = 'block';
       submitWrapper.style.display = 'block';
       voiceWrapper.style.display = 'block';
-      dressNoticeCard.style.display = 'flex';
 
-      const dayData = scheduleData[dayKey];
+      const dayData = activeDataset.schedule[dayKey];
 
-      const dressTitleEl = document.getElementById('dressTitle');
-      const dressDescEl = document.getElementById('dressDesc');
-      const dressIconEl = document.getElementById('dressIcon');
+      // Dress Card (only for Pranav)
+      if (currentStudent === 'pranav' && dayData.dress) {
+        dressNoticeCard.style.display = 'flex';
+        const dressTitleEl = document.getElementById('dressTitle');
+        const dressDescEl = document.getElementById('dressDesc');
+        const dressIconEl = document.getElementById('dressIcon');
 
-      dressTitleEl.innerText = currentLang === 'hi' ? `आज की ड्रेस (${dayData.dayName.hi})` : `Today's Dress (${dayData.dayName.en})`;
-      dressDescEl.innerText = dayData.dress[currentLang];
-      
-      if (dayKey === 'wed' || dayKey === 'sat') {
-        dressNoticeCard.style.background = '#eff6ff';
-        dressNoticeCard.style.borderColor = '#93c5fd';
-        dressIconEl.innerText = "👕";
+        dressTitleEl.innerText = currentLang === 'hi' ? `आज की ड्रेस (${dayData.dayName.hi})` : `Today's Dress (${dayData.dayName.en})`;
+        dressDescEl.innerText = dayData.dress[currentLang];
+        
+        if (dayKey === 'wed' || dayKey === 'sat') {
+          dressNoticeCard.style.background = '#eff6ff';
+          dressNoticeCard.style.borderColor = '#93c5fd';
+          dressIconEl.innerText = "👕";
+        } else {
+          dressNoticeCard.style.background = '#f8fafc';
+          dressNoticeCard.style.borderColor = '#cbd5e1';
+          dressIconEl.innerText = "👔";
+        }
       } else {
-        dressNoticeCard.style.background = '#f8fafc';
-        dressNoticeCard.style.borderColor = '#cbd5e1';
-        dressIconEl.innerText = "👔";
+        dressNoticeCard.style.display = 'none';
       }
 
       dayData.periods.forEach((p, idx) => {
-        if (p.recess) {
+        if (p.break) {
           const b = document.createElement('div');
           b.className = 'break-card';
-          b.innerText = t.recessText;
+          b.innerText = t.breakText;
           container.appendChild(b);
         } else {
           const card = document.createElement('div');
@@ -867,7 +1059,7 @@
           let html = `<div class="period-title">${t.periodPrefix}${pName}</div>`;
           const itemsList = p.items[currentLang];
           itemsList.forEach((item, itemIdx) => {
-            const inputId = `chk_${dayKey}_${idx}_${itemIdx}`;
+            const inputId = `chk_${currentStudent}_${dayKey}_${idx}_${itemIdx}`;
             html += `
               <label class="item-row" for="${inputId}">
                 <input type="checkbox" id="${inputId}" onchange="updateProgress()">
@@ -886,7 +1078,7 @@
     function updateProgress() {
       if (activeDay === 'sun') return;
 
-      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]:not(#rememberMeCheckbox)');
       const total = checkboxes.length;
       let checked = 0;
       checkboxes.forEach(c => {
@@ -894,7 +1086,7 @@
       });
 
       const percent = total > 0 ? Math.round((checked / total) * 100) : 0;
-      const t = translations[currentLang];
+      const t = commonTranslations[currentLang];
       
       const txt = document.getElementById('progress-text');
       const bar = document.getElementById('progress-fill');
@@ -909,7 +1101,7 @@
           hasCelebrated = true;
         }
       } else {
-        bar.style.background = 'linear-gradient(90deg, #0d9488, #059669)';
+        bar.style.background = currentStudent === 'kautilya' ? 'linear-gradient(90deg, #3b82f6, #2563eb)' : 'linear-gradient(90deg, #0d9488, #059669)';
         hasCelebrated = false;
       }
     }
@@ -926,7 +1118,8 @@
       document.getElementById('rewardModal').style.display = 'flex';
 
       if ('speechSynthesis' in window) {
-        const utter = new SpeechSynthesisUtterance(translations[currentLang].speechCheer);
+        const activeDataset = getCurrentDataset();
+        const utter = new SpeechSynthesisUtterance(activeDataset.meta[currentLang].cheer);
         utter.lang = currentLang === 'hi' ? 'hi-IN' : 'en-IN';
         utter.rate = 0.95;
         window.speechSynthesis.speak(utter);
@@ -945,7 +1138,7 @@
       const btn = document.getElementById('btn-voice-toggle');
       const txt = document.getElementById('voice-btn-text');
       if (btn) btn.classList.remove('speaking');
-      if (txt) txt.innerText = translations[currentLang].voiceBtnDefault;
+      if (txt) txt.innerText = commonTranslations[currentLang].voiceBtnDefault;
     }
 
     function toggleSpeakSchedule() {
@@ -959,7 +1152,8 @@
         return;
       }
 
-      const t = translations[currentLang];
+      const t = commonTranslations[currentLang];
+      const activeDataset = getCurrentDataset();
 
       if (activeDay === 'sun') {
         const sunMsg = new SpeechSynthesisUtterance(t.speechSunday);
@@ -968,17 +1162,28 @@
         return;
       }
 
-      const dayInfo = scheduleData[activeDay];
+      const dayInfo = activeDataset.schedule[activeDay];
       const itemsList = [];
       dayInfo.periods.forEach(p => {
-        if (!p.recess && p.items) {
+        if (!p.break && p.items) {
           p.items[currentLang].forEach(it => {
             if (!itemsList.includes(it)) itemsList.push(it);
           });
         }
       });
 
-      const speechText = t.speechIntro(dayInfo.dayName[currentLang], dayInfo.dress[currentLang], itemsList.join(', '));
+      let speechText = "";
+      const studentName = currentStudent === 'kautilya' ? "कौटिल्य" : "प्रणव";
+      const studentNameEn = currentStudent === 'kautilya' ? "Kautilya" : "Pranav";
+
+      if (currentLang === 'hi') {
+        const dressPart = dayInfo.dress ? `आज की ड्रेस है: ${dayInfo.dress.hi}। ` : '';
+        speechText = `नमस्ते अमृता जी! आज ${dayInfo.dayName.hi} है। ${dressPart}${studentName} के बैग में जाने वाली चीज़ें हैं: ${itemsList.join(', ')}।`;
+      } else {
+        const dressPart = dayInfo.dress ? `Today's dress is: ${dayInfo.dress.en}. ` : '';
+        speechText = `Hello Amrita ji! Today is ${dayInfo.dayName.en}. ${dressPart}Items to pack in ${studentNameEn}'s bag are: ${itemsList.join(', ')}.`;
+      }
+
       const utter = new SpeechSynthesisUtterance(speechText);
       utter.lang = currentLang === 'hi' ? 'hi-IN' : 'en-IN';
       utter.rate = 0.92;
@@ -1004,16 +1209,17 @@
     }
 
     function resetChecks() {
-      document.querySelectorAll('input[type="checkbox"]').forEach(c => c.checked = false);
+      document.querySelectorAll('input[type="checkbox"]:not(#rememberMeCheckbox)').forEach(c => c.checked = false);
       updateProgress();
     }
 
     function sendWhatsAppConfirmation() {
-      const t = translations[currentLang];
+      const t = commonTranslations[currentLang];
       const realTodayKey = getRealTodayKey();
+      const activeDataset = getCurrentDataset();
 
       if (activeDay !== realTodayKey) {
-        const realDayName = scheduleData[realTodayKey].dayName[currentLang];
+        const realDayName = activeDataset.schedule[realTodayKey].dayName[currentLang];
         alert(t.alertWrongDay(realDayName));
         return;
       }
@@ -1023,7 +1229,7 @@
         return;
       }
 
-      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]:not(#rememberMeCheckbox)');
       const total = checkboxes.length;
       let checked = 0;
       checkboxes.forEach(c => { if(c.checked) checked++; });
@@ -1036,26 +1242,28 @@
 
       const currentTime = document.getElementById('live-time').innerText;
       const currentDate = document.getElementById('live-date').innerText;
-      const dressToday = scheduleData[activeDay].dress[currentLang];
+      const studentLabelHi = currentStudent === 'kautilya' ? "कौटिल्य भारद्वाज (Nursery)" : "प्रणव भारद्वाज (Class 2)";
+      const studentLabelEn = currentStudent === 'kautilya' ? "Kautilya Bhardwaj (Nursery)" : "Pranav Bhardwaj (Class 2)";
+      const dayData = activeDataset.schedule[activeDay];
 
       let message = "";
       if (currentLang === 'hi') {
-        message += `🎒 *बैग चेकर अपडेट - प्रणव भारद्वाज (Class 2)*\n`;
+        message += `🎒 *बैग चेकर अपडेट - ${studentLabelHi}*\n`;
         message += `━━━━━━━━━━━━━━━━━━━\n`;
         message += `✅ *स्थिति:* स्कूल बैग पूरी तरह पैक हो गया है!\n`;
         message += `📅 *दिन व तारीख:* ${currentDate}\n`;
         message += `⏰ *समय:* ${currentTime}\n`;
-        message += `👔 *आज की ड्रेस:* ${dressToday}\n`;
+        if (dayData.dress) message += `👔 *आज की ड्रेस:* ${dayData.dress.hi}\n`;
         message += `📊 *प्रगति:* ${checked}/${total} सामान पैक हुआ (${percent}%)\n`;
         message += `🎒 *दैनिक सामान:* टिफिन, पानी की बोतल व पेंसिल बॉक्स चेक कर लिए गए हैं।\n\n`;
         message += `_सिटी कॉन्वेंट स्कूल, अतरौली | COOL ART®_`;
       } else {
-        message += `🎒 *Bag Checker Update - Pranav Bhardwaj (Class 2)*\n`;
+        message += `🎒 *Bag Checker Update - ${studentLabelEn}*\n`;
         message += `━━━━━━━━━━━━━━━━━━━\n`;
         message += `✅ *Status:* School Bag is 100% Packed!\n`;
         message += `📅 *Date:* ${currentDate}\n`;
         message += `⏰ *Time:* ${currentTime}\n`;
-        message += `👔 *Uniform:* ${dressToday}\n`;
+        if (dayData.dress) message += `👔 *Uniform:* ${dayData.dress.en}\n`;
         message += `📊 *Progress:* ${checked}/${total} Items Checked (${percent}%)\n`;
         message += `🎒 *Daily Essentials:* Tiffin, Water Bottle & Pencil Box packed.\n\n`;
         message += `_City Convent School, Atrauli | COOL ART®_`;
@@ -1073,7 +1281,7 @@
       if (targetBtn) {
         const badge = document.createElement('span');
         badge.className = 'today-badge';
-        badge.innerText = translations[currentLang].todayBadge;
+        badge.innerText = commonTranslations[currentLang].todayBadge;
         targetBtn.appendChild(badge);
       }
 
