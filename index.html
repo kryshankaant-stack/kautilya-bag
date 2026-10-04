@@ -3,17 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>कौटिल्य भारद्वाज - बैग चेकर</title>
+  <title>कौटिल्य भारद्वाज - बैग चेकर | School Bag Checker</title>
   
-  <!-- कौटिल्य का असली फ़ोटो आइकन -->
   <link rel="icon" type="image/png" href="kautilya.png">
   <link rel="apple-touch-icon" href="kautilya.png">
   <link rel="shortcut icon" href="kautilya.png">
 
-  <!-- Android / Chrome Web App Manifest -->
   <link rel="manifest" href="data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22%E0%A4%95%E0%A5%8C%E0%A4%9F%E0%A4%BF%E0%A4%B2%E0%A5%8D%E0%A4%AF%20%E0%A4%AC%E0%A5%88%E0%A4%97%20%E0%A4%9A%E0%A5%87%E0%A4%95%E0%A4%B0%22%2C%22short_name%22%3A%22%E0%A4%95%E0%A5%8C%E0%A4%9F%E0%A4%BF%E0%A4%B2%E0%A5%8D%E0%A4%AF%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22kautilya.png%22%2C%22sizes%22%3A%22192x192%20512x512%22%2C%22type%22%3A%22image%2Fpng%22%7D%5D%7D">
 
-  <!-- Confetti Canvas Library -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <style>
@@ -38,22 +35,46 @@
     body::before {
       content: "✏️ 📐 📚 🎨 🎒 🔤 🔬 📝 ➕ ➖ ✖️ 📖 🖍️ ✂️ 💡";
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      font-size: 28px;
-      line-height: 70px;
-      letter-spacing: 24px;
-      opacity: 0.04;
-      pointer-events: none;
-      word-wrap: break-word;
-      z-index: 0;
+      top: 0; left: 0; width: 100%; height: 100%;
+      font-size: 28px; line-height: 70px; letter-spacing: 24px;
+      opacity: 0.04; pointer-events: none; word-wrap: break-word; z-index: 0;
     }
 
     .app-container { position: relative; z-index: 1; }
 
-    /* लाइव क्लॉक विजेट */
+    .lang-switch-wrap {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-bottom: 10px;
+      gap: 8px;
+    }
+    .lang-pill {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid #cbd5e1;
+      border-radius: 20px;
+      padding: 3px;
+      display: inline-flex;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+    }
+    .lang-btn {
+      border: none;
+      background: transparent;
+      padding: 5px 14px;
+      font-size: 12px;
+      font-weight: 800;
+      color: #64748b;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .lang-btn.active {
+      background: #2563eb;
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(37,99,235,0.3);
+    }
+
     .live-clock-card {
       background: linear-gradient(135deg, #1e3a8a, #3b82f6);
       color: #ffffff;
@@ -70,7 +91,6 @@
     .live-date-text { font-size: 13px; font-weight: 700; margin-top: 1px; }
     .live-time-badge { background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(8px); padding: 5px 12px; border-radius: 20px; font-size: 14px; font-weight: 800; letter-spacing: 0.5px; border: 1px solid rgba(255, 255, 255, 0.3); }
 
-    /* हेडर */
     .header { text-align: center; margin-bottom: 12px; width: 100%; display: flex; flex-direction: column; align-items: center; }
     .avatar-wrapper { margin: 0 auto 10px auto; position: relative; }
     .avatar-img { width: 98px; height: 98px; border-radius: 50%; object-fit: cover; box-shadow: 0 6px 18px rgba(37, 99, 235, 0.28); border: 3.5px solid #ffffff; display: block; margin: 0 auto; }
@@ -80,7 +100,6 @@
     .student-eng-name { font-size: 14px; color: #2563eb; font-weight: 700; margin-top: 2px; }
     .header p.school-info { font-size: 12.5px; color: #64748b; margin-top: 4px; font-weight: 500; }
 
-    /* ऑडियो वॉइस असिस्टेंट बटन */
     .voice-btn-wrap { margin-bottom: 14px; text-align: center; }
     .btn-voice {
       background: linear-gradient(135deg, #6366f1, #4f46e5);
@@ -106,7 +125,6 @@
       100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
     }
 
-    /* प्रोग्रेस कार्ड */
     .progress-card { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border-radius: 16px; padding: 14px 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); margin-bottom: 14px; border: 1px solid rgba(255, 255, 255, 0.8); }
     .progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
     .progress-text { font-size: 13.5px; font-weight: 800; color: #1e293b; }
@@ -116,18 +134,14 @@
     .progress-bar-bg { width: 100%; height: 10px; background-color: #e2e8f0; border-radius: 10px; overflow: hidden; }
     .progress-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #3b82f6, #2563eb); border-radius: 10px; transition: width 0.3s ease, background 0.3s ease; }
 
-    /* दिन के बटन ग्रिड */
     .days-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
     .day-btn { position: relative; padding: 12px 4px; font-size: 13px; font-weight: 700; border: 1px solid #e2e8f0; background: rgba(255, 255, 255, 0.85); color: #475569; border-radius: 12px; cursor: pointer; text-align: center; transition: all 0.2s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.03); backdrop-filter: blur(6px); }
-    
     .day-btn.active { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #ffffff; border-color: #2563eb; box-shadow: 0 4px 12px rgba(37,99,235,0.32); transform: translateY(-1px); }
-    
     .today-badge { position: absolute; top: -6px; right: -4px; background: #f59e0b; color: #ffffff; font-size: 9px; font-weight: 800; padding: 1px 6px; border-radius: 10px; border: 1px solid #ffffff; box-shadow: 0 2px 4px rgba(0,0,0,0.15); }
 
     .day-btn.sunday-btn { border-color: #fca5a5; background: #fff5f5; color: #dc2626; grid-column: span 3; font-weight: 800; font-size: 14px; }
     .day-btn.sunday-btn.active { background: linear-gradient(135deg, #ef4444, #b91c1c) !important; color: #ffffff !important; border-color: #dc2626 !important; box-shadow: 0 4px 14px rgba(220,38,38,0.35) !important; }
 
-    /* रविवार की छुट्टी का कार्ड */
     .sunday-holiday-card {
       background: linear-gradient(135deg, #fff1f2, #ffe4e6);
       border: 2px dashed #f43f5e;
@@ -141,7 +155,6 @@
     .sunday-holiday-card h2 { font-size: 20px; font-weight: 900; color: #be123c; margin-bottom: 6px; }
     .sunday-holiday-card p { font-size: 13.5px; color: #881337; font-weight: 600; line-height: 1.5; }
 
-    /* कार्ड और पीरियड */
     .card { background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(10px); border-radius: 16px; padding: 14px 16px; box-shadow: 0 4px 18px rgba(0,0,0,0.03); margin-bottom: 12px; border: 1px solid rgba(255, 255, 255, 0.8); }
     .period-title { font-size: 14px; font-weight: 800; color: #1e40af; margin-bottom: 10px; border-bottom: 1px dashed #e2e8f0; padding-bottom: 6px; display: flex; align-items: center; gap: 6px; }
     
@@ -153,7 +166,6 @@
     .break-card { background: linear-gradient(135deg, #fef3c7, #fde68a); border: 1px solid #fcd34d; border-radius: 12px; padding: 10px; font-size: 13.5px; font-weight: 800; color: #92400e; text-align: center; margin: 12px 0; box-shadow: 0 2px 6px rgba(245, 158, 11, 0.15); }
     .essentials-title { font-size: 12.5px; font-weight: 800; color: #475569; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.6px; display: flex; align-items: center; gap: 6px; }
 
-    /* व्हाट्सऐप सबमिट बटन */
     .submit-section { margin-top: 16px; margin-bottom: 14px; text-align: center; }
     .btn-whatsapp-submit {
       width: 100%;
@@ -176,7 +188,6 @@
     .btn-whatsapp-submit:active { transform: scale(0.98); }
     .btn-whatsapp-submit svg { width: 22px; height: 22px; fill: currentColor; }
 
-    /* स्टार रिवॉर्ड पॉप-अप मॉडल (Modal) */
     .reward-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -218,7 +229,6 @@
       box-shadow: 0 4px 12px rgba(34, 197, 94, 0.35);
     }
 
-    /* फुटर ब्रांडिंग */
     .footer-ad { margin-top: 24px; padding: 16px; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(8px); border-radius: 16px; border: 1px dashed #94a3b8; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
     .footer-brand { font-size: 15px; font-weight: 900; color: #0f172a; letter-spacing: 0.5px; }
     .footer-brand span { color: #dc2626; }
@@ -230,45 +240,47 @@
 
 <div class="app-container">
 
-  <!-- लाइव क्लॉक और तारीख -->
+  <div class="lang-switch-wrap">
+    <div class="lang-pill">
+      <button class="lang-btn active" id="btn-lang-hi" onclick="setLanguage('hi')">हिंदी</button>
+      <button class="lang-btn" id="btn-lang-en" onclick="setLanguage('en')">English</button>
+    </div>
+  </div>
+
   <div class="live-clock-card">
     <div class="clock-date-group">
-      <div class="live-day-tag">📅 आज का दिन</div>
-      <div class="live-date-text" id="live-date">लोड हो रहा है...</div>
+      <div class="live-day-tag" id="ui-day-tag">📅 आज का दिन</div>
+      <div class="live-date-text" id="live-date">...</div>
     </div>
     <div class="live-time-badge" id="live-time">00:00:00 AM</div>
   </div>
 
-  <!-- हेडर -->
   <div class="header">
     <div class="avatar-wrapper">
       <img src="kautilya.png" alt="Kautilya Bhardwaj" class="avatar-img" onerror="this.style.display='none'">
     </div>
-    <div class="checker-tag">🎒 घर के लिए बैग चेकर (नर्सरी)</div>
-    <h1 class="student-name">कौटिल्य भारद्वाज</h1>
-    <div class="student-eng-name">Kautilya Bhardwaj</div>
-    <p class="school-info">अमृता जी के लिए विशेष सूची | सिटी कॉन्वेंट स्कूल, अतरौली</p>
+    <div class="checker-tag" id="ui-checker-tag">🎒 घर के लिए बैग चेकर (नर्सरी)</div>
+    <h1 class="student-name" id="ui-student-name">कौटिल्य भारद्वाज</h1>
+    <div class="student-eng-name" id="ui-student-eng">Kautilya Bhardwaj</div>
+    <p class="school-info" id="ui-school-info">अमृता जी के लिए विशेष सूची | सिटी कॉन्वेंट स्कूल, अतरौली</p>
   </div>
 
-  <!-- ऑडियो वॉइस असिस्टेंट बटन -->
   <div class="voice-btn-wrap" id="voice-wrapper">
     <button class="btn-voice" id="btn-voice-toggle" onclick="toggleSpeakSchedule()">
       <span>🔊</span> <span id="voice-btn-text">आज का बैग बोलकर सुनें</span>
     </button>
   </div>
 
-  <!-- पैकिंग प्रगति कार्ड -->
   <div class="progress-card" id="progress-wrapper">
     <div class="progress-header">
       <div class="progress-text" id="progress-text">पैकिंग प्रगति: 0 / 0 पैक हुआ (0%)</div>
-      <button class="btn-reset-top" onclick="resetChecks()">🔄 रीसेट करें</button>
+      <button class="btn-reset-top" id="ui-reset-btn" onclick="resetChecks()">🔄 रीसेट करें</button>
     </div>
     <div class="progress-bar-bg">
       <div class="progress-bar-fill" id="progress-fill"></div>
     </div>
   </div>
 
-  <!-- दिन चुनने के बटन -->
   <div class="days-grid">
     <button class="day-btn" id="btn-mon" onclick="switchDay('mon', this)">सोमवार</button>
     <button class="day-btn" id="btn-tue" onclick="switchDay('tue', this)">मंगलवार</button>
@@ -279,35 +291,31 @@
     <button class="day-btn sunday-btn" id="btn-sun" onclick="switchDay('sun', this)">🛑 रविवार (स्कूल का अवकाश / छुट्टी)</button>
   </div>
 
-  <!-- टाइम टेबल कंटेनर -->
   <div id="schedule-container"></div>
 
-  <!-- दैनिक अनिवार्य वस्तुएं -->
   <div class="card" id="essentials-card">
-    <div class="essentials-title">⭐ रोज़ाना साथ जाने वाली ज़रूरी चीज़ें</div>
+    <div class="essentials-title" id="ui-essentials-title">⭐ रोज़ाना साथ जाने वाली ज़रूरी चीज़ें</div>
     <label class="item-row">
       <input type="checkbox" onchange="updateProgress()">
-      <span class="item-label">पेंसिल बॉक्स (2 छिली पेंसिल, रबर, कटर)</span>
+      <span class="item-label" id="ui-item-pencil">पेंसिल बॉक्स (2 छिली पेंसिल, रबर, कटर)</span>
     </label>
     <label class="item-row">
       <input type="checkbox" onchange="updateProgress()">
-      <span class="item-label">टिफिन (Lunch Box)</span>
+      <span class="item-label" id="ui-item-tiffin">टिफिन (Lunch Box)</span>
     </label>
     <label class="item-row">
       <input type="checkbox" onchange="updateProgress()">
-      <span class="item-label">पानी की बोतल (Water Bottle)</span>
+      <span class="item-label" id="ui-item-bottle">पानी की बोतल (Water Bottle)</span>
     </label>
   </div>
 
-  <!-- व्हाट्सऐप सबमिट बटन -->
   <div class="submit-section" id="submit-wrapper">
     <button class="btn-whatsapp-submit" onclick="sendWhatsAppConfirmation()">
       <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-      <span>बैग पैक हो गया - सूचित करें</span>
+      <span id="ui-btn-submit-text">बैग पैक हो गया - सूचित करें</span>
     </button>
   </div>
 
-  <!-- कंपनी फुटर -->
   <div class="footer-ad">
     <div class="footer-brand">Designed & Developed by: <span>COOL ART®</span></div>
     <div class="footer-address">Village: Nahal, Atrauli, Aligarh, UP</div>
@@ -316,32 +324,230 @@
 
 </div>
 
-<!-- 100% पूरा होने पर स्टार रिवॉर्ड पॉप-अप -->
 <div class="reward-overlay" id="rewardModal">
   <div class="reward-modal">
     <div class="reward-stars">⭐⭐⭐</div>
-    <h3>शाबाश कौटिल्य बेटा!</h3>
-    <p>आज का पूरा स्कूल बैग एकदम परफेक्ट पैक हो गया है। आप बहुत अच्छे बच्चे हो! 🎉🎒</p>
-    <button class="btn-reward-close" onclick="closeRewardModal()">बहुत बढ़िया! 👍</button>
+    <h3 id="ui-modal-title">शाबाश कौटिल्य बेटा!</h3>
+    <p id="ui-modal-desc">आज का पूरा स्कूल बैग एकदम परफेक्ट पैक हो गया है। आप बहुत अच्छे बच्चे हो! 🎉🎒</p>
+    <button class="btn-reward-close" id="ui-modal-btn" onclick="closeRewardModal()">बहुत बढ़िया! 👍</button>
   </div>
 </div>
 
   <script>
     const MY_PHONE_NUMBER = "919458614610"; 
+    let currentLang = 'hi';
+    let activeDay = 'mon';
     let hasCelebrated = false;
+    let isSpeaking = false;
 
-    // लाइव तारीख और समय
+    // Asli current system day key prapt karna
+    function getRealTodayKey() {
+      const dayIndex = new Date().getDay();
+      const mapDays = { 0: 'sun', 1: 'mon', 2: 'tue', 3: 'wed', 4: 'thu', 5: 'fri', 6: 'sat' };
+      return mapDays[dayIndex];
+    }
+
+    const translations = {
+      hi: {
+        checkerTag: "🎒 घर के लिए बैग चेकर (नर्सरी)",
+        studentName: "कौटिल्य भारद्वाज",
+        studentEng: "Kautilya Bhardwaj",
+        schoolInfo: "अमृता जी के लिए विशेष सूची | सिटी कॉन्वेंट स्कूल, अतरौली",
+        todayBadge: "⭐ आज",
+        voiceBtnDefault: "आज का बैग बोलकर सुनें",
+        voiceBtnSpeaking: "बोल रहा है... (रोकने के लिए दबाएं)",
+        progressText: (chk, tot, pct) => `पैकिंग प्रगति: ${chk} / ${tot} पैक हुआ (${pct}%)`,
+        resetBtn: "🔄 रीसेट करें",
+        periodPrefix: "📚 ",
+        breakText: "🥪 लंच / ब्रेक (BREAK TIME)",
+        essentialsTitle: "⭐ रोज़ाना साथ जाने वाली ज़रूरी चीज़ें",
+        itemPencil: "पेंसिल बॉक्स (2 छिली पेंसिल, रबर, कटर)",
+        itemTiffin: "टिफिन (Lunch Box)",
+        itemBottle: "पानी की बोतल (Water Bottle)",
+        btnSubmit: "बैग पैक हो गया - सूचित करें",
+        sunTitle: "आज रविवार है - स्कूल की छुट्टी है!",
+        sunDesc: "आज सिटी कॉन्वेंट स्कूल का अवकाश है। कौटिल्य के बैग में आज कोई किताब-कॉपी रखने की आवश्यकता नहीं है। आराम और मस्ती का दिन!",
+        modalTitle: "शाबाश कौटिल्य बेटा!",
+        modalDesc: "आज का पूरा स्कूल बैग एकदम परफेक्ट पैक हो गया है। आप बहुत अच्छे बच्चे हो! 🎉🎒",
+        modalBtn: "बहुत बढ़िया! 👍",
+        speechCheer: "शाबाश कौटिल्य बेटा! आज का स्कूल बैग बिल्कुल तैयार है!",
+        speechSunday: "आज रविवार है। स्कूल की छुट्टी है। बैग पैक करने की ज़रूरत नहीं है।",
+        speechIntro: (dayName, items) => `नमस्ते अमृता जी! आज ${dayName} है। कौटिल्य के बैग में जाने वाली चीज़ें हैं: ${items}। साथ ही पेंसिल बॉक्स, टिफिन और पानी की बोतल ज़रूर रखें।`,
+        alertWrongDay: (todayName) => `⚠️ ध्यान दें: आज ${todayName} है! आप सिर्फ आज के दिन का ही बैग अपडेट व्हाट्सएप पर भेज सकते हैं।`,
+        alertIncomplete: "⚠️ कृपया पहले बैग का सारा सामान पैक करके सभी बॉक्स पर टिक लगाएं, तभी सूचना भेजी जा सकती है।"
+      },
+      en: {
+        checkerTag: "🎒 Home Bag Checker (Nursery)",
+        studentName: "Kautilya Bhardwaj",
+        studentEng: "कौटिल्य भारद्वाज",
+        schoolInfo: "Special Checklist for Amrita Ji | City Convent School, Atrauli",
+        todayBadge: "⭐ TODAY",
+        voiceBtnDefault: "Listen Bag Items via Audio",
+        voiceBtnSpeaking: "Speaking... (Tap to stop)",
+        progressText: (chk, tot, pct) => `Packing Progress: ${chk} / ${tot} Packed (${pct}%)`,
+        resetBtn: "🔄 Reset All",
+        periodPrefix: "📚 Period ",
+        breakText: "🥪 LUNCH / BREAK TIME",
+        essentialsTitle: "⭐ DAILY ESSENTIAL ITEMS",
+        itemPencil: "Pencil Box (2 sharpened pencils, eraser, sharpener)",
+        itemTiffin: "Lunch Box (Tiffin)",
+        itemBottle: "Water Bottle",
+        btnSubmit: "Bag Packed - Send WhatsApp Update",
+        sunTitle: "Today is Sunday - School Holiday!",
+        sunDesc: "Today is an official school holiday at City Convent School. No need to pack books or notebooks today. Enjoy your Sunday!",
+        modalTitle: "Well Done Kautilya!",
+        modalDesc: "The school bag is 100% packed and ready. You are a brilliant boy! 🎉🎒",
+        modalBtn: "Awesome! 👍",
+        speechCheer: "Well done Kautilya! Your school bag is completely ready!",
+        speechSunday: "Today is Sunday. It is a school holiday. No need to pack the bag today.",
+        speechIntro: (dayName, items) => `Hello Amrita ji! Today is ${dayName}. Items to pack in Kautilya's bag are: ${items}. Please also pack the pencil box, tiffin and water bottle.`,
+        alertWrongDay: (todayName) => `⚠️ Note: Today is ${todayName}! You can only send bag packing updates for today's active schedule.`,
+        alertIncomplete: "⚠️ Please check all items (100% pack) before sending the WhatsApp status."
+      }
+    };
+
+    const scheduleData = {
+      mon: {
+        dayName: { hi: "सोमवार", en: "Monday" },
+        btnLabel: { hi: "सोमवार", en: "Monday" },
+        periods: [
+          { name: { hi: "पहला पीरियड", en: "1st Period" }, items: { hi: ["अंग्रेज़ी किताब", "अंग्रेज़ी कॉपी"], en: ["English Book", "English Notebook"] } },
+          { name: { hi: "दूसरा पीरियड", en: "2nd Period" }, items: { hi: ["अंग्रेज़ी किताब", "अंग्रेज़ी कॉपी"], en: ["English Book", "English Notebook"] } },
+          { name: { hi: "तीसरा पीरियड", en: "3rd Period" }, items: { hi: ["गणित कॉपी"], en: ["Maths Notebook"] } },
+          { name: { hi: "चौथा पीरियड", en: "4th Period" }, items: { hi: ["गणित कॉपी"], en: ["Maths Notebook"] } },
+          { break: true },
+          { name: { hi: "पांचवां पीरियड", en: "5th Period" }, items: { hi: ["हिंदी किताब", "हिंदी कॉपी"], en: ["Hindi Book", "Hindi Notebook"] } },
+          { name: { hi: "छठा पीरियड", en: "6th Period" }, items: { hi: ["राइम्स (कविता) किताब"], en: ["Rhymes (Poems) Book"] } }
+        ]
+      },
+      tue: {
+        dayName: { hi: "मंगलवार", en: "Tuesday" },
+        btnLabel: { hi: "मंगलवार", en: "Tuesday" },
+        periods: [
+          { name: { hi: "पहला पीरियड", en: "1st Period" }, items: { hi: ["अंग्रेज़ी किताब", "अंग्रेज़ी कॉपी"], en: ["English Book", "English Notebook"] } },
+          { name: { hi: "दूसरा पीरियड", en: "2nd Period" }, items: { hi: ["अंग्रेज़ी किताब", "अंग्रेज़ी कॉपी"], en: ["English Book", "English Notebook"] } },
+          { name: { hi: "तीसरा पीरियड", en: "3rd Period" }, items: { hi: ["गणित कॉपी"], en: ["Maths Notebook"] } },
+          { name: { hi: "चौथा पीरियड", en: "4th Period" }, items: { hi: ["गणित कॉपी"], en: ["Maths Notebook"] } },
+          { break: true },
+          { name: { hi: "पांचवां पीरियड", en: "5th Period" }, items: { hi: ["हिंदी किताब", "हिंदी कॉपी"], en: ["Hindi Book", "Hindi Notebook"] } },
+          { name: { hi: "छठा पीरियड", en: "6th Period" }, items: { hi: ["राइम्स (कविता) किताब"], en: ["Rhymes (Poems) Book"] } }
+        ]
+      },
+      wed: {
+        dayName: { hi: "बुधवार", en: "Wednesday" },
+        btnLabel: { hi: "बुधवार", en: "Wednesday" },
+        periods: [
+          { name: { hi: "पहला पीरियड", en: "1st Period" }, items: { hi: ["गणित कॉपी"], en: ["Maths Notebook"] } },
+          { name: { hi: "दूसरा पीरियड", en: "2nd Period" }, items: { hi: ["गणित कॉपी"], en: ["Maths Notebook"] } },
+          { name: { hi: "तीसरा पीरियड", en: "3rd Period" }, items: { hi: ["हिंदी किताब", "हिंदी कॉपी"], en: ["Hindi Book", "Hindi Notebook"] } },
+          { name: { hi: "चौथा पीरियड", en: "4th Period" }, items: { hi: ["हिंदी किताब", "हिंदी कॉपी"], en: ["Hindi Book", "Hindi Notebook"] } },
+          { break: true },
+          { name: { hi: "पांचवां पीरियड", en: "5th Period" }, items: { hi: ["अंग्रेज़ी किताब", "अंग्रेज़ी कॉपी"], en: ["English Book", "English Notebook"] } },
+          { name: { hi: "छठा पीरियड", en: "6th Period" }, items: { hi: ["राइम्स (कविता) किताब"], en: ["Rhymes (Poems) Book"] } }
+        ]
+      },
+      thu: {
+        dayName: { hi: "गुरुवार", en: "Thursday" },
+        btnLabel: { hi: "गुरुवार", en: "Thursday" },
+        periods: [
+          { name: { hi: "पहला पीरियड", en: "1st Period" }, items: { hi: ["अंग्रेज़ी किताब", "अंग्रेज़ी कॉपी"], en: ["English Book", "English Notebook"] } },
+          { name: { hi: "दूसरा पीरियड", en: "2nd Period" }, items: { hi: ["अंग्रेज़ी किताब", "अंग्रेज़ी कॉपी"], en: ["English Book", "English Notebook"] } },
+          { name: { hi: "तीसरा पीरियड", en: "3rd Period" }, items: { hi: ["हिंदी किताब", "हिंदी कॉपी"], en: ["Hindi Book", "Hindi Notebook"] } },
+          { name: { hi: "चौथा पीरियड", en: "4th Period" }, items: { hi: ["हिंदी किताब", "हिंदी कॉपी"], en: ["Hindi Book", "Hindi Notebook"] } },
+          { break: true },
+          { name: { hi: "पांचवां पीरियड", en: "5th Period" }, items: { hi: ["गणित कॉपी"], en: ["Maths Notebook"] } },
+          { name: { hi: "छठा पीरियड", en: "6th Period" }, items: { hi: ["राइम्स (कविता) किताब"], en: ["Rhymes (Poems) Book"] } }
+        ]
+      },
+      fri: {
+        dayName: { hi: "शुक्रवार", en: "Friday" },
+        btnLabel: { hi: "शुक्रवार", en: "Friday" },
+        periods: [
+          { name: { hi: "पहला पीरियड", en: "1st Period" }, items: { hi: ["अंग्रेज़ी राइटिंग बुक"], en: ["English Writing Book"] } },
+          { name: { hi: "दूसरा पीरियड", en: "2nd Period" }, items: { hi: ["अंग्रेज़ी राइटिंग बुक"], en: ["English Writing Book"] } },
+          { name: { hi: "तीसरा पीरियड", en: "3rd Period" }, items: { hi: ["हिंदी राइटिंग बुक"], en: ["Hindi Writing Book"] } },
+          { name: { hi: "चौथा पीरियड", en: "4th Period" }, items: { hi: ["गणित राइटिंग बुक"], en: ["Maths Writing Book"] } },
+          { break: true },
+          { name: { hi: "पांचवां पीरियड", en: "5th Period" }, items: { hi: ["खेलकूद (Games - कोई किताब नहीं)"], en: ["Games Period (No Book Required)"] } },
+          { name: { hi: "छठा पीरियड", en: "6th Period" }, items: { hi: ["सामान्य ज्ञान (G.K. - मौखिक)"], en: ["General Knowledge (Oral)"] } }
+        ]
+      },
+      sat: {
+        dayName: { hi: "शनिवार", en: "Saturday" },
+        btnLabel: { hi: "शनिवार", en: "Saturday" },
+        periods: [
+          { name: { hi: "पहला पीरियड", en: "1st Period" }, items: { hi: ["अंग्रेज़ी राइटिंग बुक"], en: ["English Writing Book"] } },
+          { name: { hi: "दूसरा पीरियड", en: "2nd Period" }, items: { hi: ["अंग्रेज़ी राइटिंग बुक"], en: ["English Writing Book"] } },
+          { name: { hi: "तीसरा पीरियड", en: "3rd Period" }, items: { hi: ["हिंदी राइटिंग बुक"], en: ["Hindi Writing Book"] } },
+          { name: { hi: "चौथा पीरियड", en: "4th Period" }, items: { hi: ["गणित राइटिंग बुक"], en: ["Maths Writing Book"] } },
+          { break: true },
+          { name: { hi: "पांचवां पीरियड", en: "5th Period" }, items: { hi: ["ड्राइंग बुक + मोम वाले रंग"], en: ["Drawing Book + Crayon Colors"] } },
+          { name: { hi: "छठा पीरियड", en: "6th Period" }, items: { hi: ["सामान्य ज्ञान (G.K. - मौखिक)"], en: ["General Knowledge (Oral)"] } }
+        ]
+      },
+      sun: {
+        dayName: { hi: "रविवार", en: "Sunday" },
+        btnLabel: { hi: "🛑 रविवार (स्कूल का अवकाश / छुट्टी)", en: "🛑 Sunday (School Holiday)" }
+      }
+    };
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      stopVoice();
+
+      document.getElementById('btn-lang-hi').classList.toggle('active', lang === 'hi');
+      document.getElementById('btn-lang-en').classList.toggle('active', lang === 'en');
+
+      const t = translations[lang];
+      document.getElementById('ui-day-tag').innerText = lang === 'hi' ? "📅 आज का दिन" : "📅 TODAY'S DATE";
+      document.getElementById('ui-checker-tag').innerText = t.checkerTag;
+      document.getElementById('ui-student-name').innerText = t.studentName;
+      document.getElementById('ui-student-eng').innerText = t.studentEng;
+      document.getElementById('ui-school-info').innerText = t.schoolInfo;
+      document.getElementById('ui-reset-btn').innerText = t.resetBtn;
+      document.getElementById('voice-btn-text').innerText = t.voiceBtnDefault;
+      document.getElementById('ui-essentials-title').innerText = t.essentialsTitle;
+      document.getElementById('ui-item-pencil').innerText = t.itemPencil;
+      document.getElementById('ui-item-tiffin').innerText = t.itemTiffin;
+      document.getElementById('ui-item-bottle').innerText = t.itemBottle;
+      document.getElementById('ui-btn-submit-text').innerText = t.btnSubmit;
+
+      document.getElementById('ui-modal-title').innerText = t.modalTitle;
+      document.getElementById('ui-modal-desc').innerText = t.modalDesc;
+      document.getElementById('ui-modal-btn').innerText = t.modalBtn;
+
+      ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'].forEach(k => {
+        const btn = document.getElementById(`btn-${k}`);
+        if (btn) {
+          const badge = btn.querySelector('.today-badge');
+          btn.innerText = scheduleData[k].btnLabel[lang];
+          if (badge) {
+            badge.innerText = t.todayBadge;
+            btn.appendChild(badge);
+          }
+        }
+      });
+
+      updateLiveClock();
+      renderDay(activeDay);
+    }
+
     function updateLiveClock() {
       const now = new Date();
       const hindiDays = ["रविवार", "सोमवार", "मंगलवार", "बुधवार", "गुरुवार", "शुक्रवार", "शनिवार"];
+      const englishDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
       const hindiMonths = ["जनवरी", "फ़रवरी", "मार्च", "अप्रैल", "मई", "जून", "जुलाई", "अगस्त", "सितंबर", "अक्टूबर", "नवंबर", "दिसंबर"];
+      const englishMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-      const dayName = hindiDays[now.getDay()];
+      const dayIndex = now.getDay();
       const day = String(now.getDate()).padStart(2, '0');
-      const monthName = hindiMonths[now.getMonth()];
       const year = now.getFullYear();
 
-      document.getElementById('live-date').innerText = `${dayName}, ${day} ${monthName} ${year}`;
+      if (currentLang === 'hi') {
+        document.getElementById('live-date').innerText = `${hindiDays[dayIndex]}, ${day} ${hindiMonths[now.getMonth()]} ${year}`;
+      } else {
+        document.getElementById('live-date').innerText = `${englishDays[dayIndex]}, ${day} ${englishMonths[now.getMonth()]} ${year}`;
+      }
 
       let hours = now.getHours();
       const minutes = String(now.getMinutes()).padStart(2, '0');
@@ -354,84 +560,6 @@
       document.getElementById('live-time').innerText = `${strHours}:${minutes}:${seconds} ${ampm}`;
     }
     setInterval(updateLiveClock, 1000);
-    updateLiveClock();
-
-    const data = {
-      mon: {
-        name: "सोमवार",
-        periods: [
-          { name: "पहला पीरियड", items: ["अंग्रेज़ी किताब", "अंग्रेज़ी कॉपी"] },
-          { name: "दूसरा पीरियड", items: ["अंग्रेज़ी किताब", "अंग्रेज़ी कॉपी"] },
-          { name: "तीसरा पीरियड", items: ["गणित कॉपी"] },
-          { name: "चौथा पीरियड", items: ["गणित कॉपी"] },
-          { break: true },
-          { name: "पांचवां पीरियड", items: ["हिंदी किताब", "हिंदी कॉपी"] },
-          { name: "छठा पीरियड", items: ["राइम्स (कविता) किताब"] }
-        ]
-      },
-      tue: {
-        name: "मंगलवार",
-        periods: [
-          { name: "पहला पीरियड", items: ["अंग्रेज़ी किताब", "अंग्रेज़ी कॉपी"] },
-          { name: "दूसरा पीरियड", items: ["अंग्रेज़ी किताब", "अंग्रेज़ी कॉपी"] },
-          { name: "तीसरा पीरियड", items: ["गणित कॉपी"] },
-          { name: "चौथा पीरियड", items: ["गणित कॉपी"] },
-          { break: true },
-          { name: "पांचवां पीरियड", items: ["हिंदी किताब", "हिंदी कॉपी"] },
-          { name: "छठा पीरियड", items: ["राइम्स (कविता) किताब"] }
-        ]
-      },
-      wed: {
-        name: "बुधवार",
-        periods: [
-          { name: "पहला पीरियड", items: ["गणित कॉपी"] },
-          { name: "दूसरा पीरियड", items: ["गणित कॉपी"] },
-          { name: "तीसरा पीरियड", items: ["हिंदी किताब", "हिंदी कॉपी"] },
-          { name: "चौथा पीरियड", items: ["हिंदी किताब", "हिंदी कॉपी"] },
-          { break: true },
-          { name: "पांचवां पीरियड", items: ["अंग्रेज़ी किताब", "अंग्रेज़ी कॉपी"] },
-          { name: "छठा पीरियड", items: ["राइम्स (कविता) किताब"] }
-        ]
-      },
-      thu: {
-        name: "गुरुवार",
-        periods: [
-          { name: "पहला पीरियड", items: ["अंग्रेज़ी किताब", "अंग्रेज़ी कॉपी"] },
-          { name: "दूसरा पीरियड", items: ["अंग्रेज़ी किताब", "अंग्रेज़ी कॉपी"] },
-          { name: "तीसरा पीरियड", items: ["हिंदी किताब", "हिंदी कॉपी"] },
-          { name: "चौथा पीरियड", items: ["हिंदी किताब", "हिंदी कॉपी"] },
-          { break: true },
-          { name: "पांचवां पीरियड", items: ["गणित कॉपी"] },
-          { name: "छठा पीरियड", items: ["राइम्स (कविता) किताब"] }
-        ]
-      },
-      fri: {
-        name: "शुक्रवार",
-        periods: [
-          { name: "पहला पीरियड", items: ["अंग्रेज़ी राइटिंग बुक"] },
-          { name: "दूसरा पीरियड", items: ["अंग्रेज़ी राइटिंग बुक"] },
-          { name: "तीसरा पीरियड", items: ["हिंदी राइटिंग बुक"] },
-          { name: "चौथा पीरियड", items: ["गणित राइटिंग बुक"] },
-          { break: true },
-          { name: "पांचवां पीरियड", items: ["खेलकूद (Games - कोई किताब नहीं)"] },
-          { name: "छठा पीरियड", items: ["सामान्य ज्ञान (G.K. - मौखिक)"] }
-        ]
-      },
-      sat: {
-        name: "शनिवार",
-        periods: [
-          { name: "पहला पीरियड", items: ["अंग्रेज़ी राइटिंग बुक"] },
-          { name: "दूसरा पीरियड", items: ["अंग्रेज़ी राइटिंग बुक"] },
-          { name: "तीसरा पीरियड", items: ["हिंदी राइटिंग बुक"] },
-          { name: "चौथा पीरियड", items: ["गणित राइटिंग बुक"] },
-          { break: true },
-          { name: "पांचवां पीरियड", items: ["ड्राइंग बुक + मोम वाले रंग"] },
-          { name: "छठा पीरियड", items: ["सामान्य ज्ञान (G.K. - मौखिक)"] }
-        ]
-      }
-    };
-
-    let activeDay = 'mon';
 
     function renderDay(dayKey) {
       stopVoice();
@@ -441,6 +569,7 @@
       const essentialsCard = document.getElementById('essentials-card');
       const submitWrapper = document.getElementById('submit-wrapper');
       const voiceWrapper = document.getElementById('voice-wrapper');
+      const t = translations[currentLang];
 
       container.innerHTML = '';
 
@@ -453,8 +582,8 @@
         container.innerHTML = `
           <div class="sunday-holiday-card">
             <div class="holiday-icon">🎉 🎒 🏡</div>
-            <h2>आज रविवार है - स्कूल की छुट्टी है!</h2>
-            <p>आज सिटी कॉन्वेंट स्कूल का अवकाश है। कौटिल्य के बैग में आज कोई किताब-कॉपी रखने की आवश्यकता नहीं है। आराम और मस्ती का दिन!</p>
+            <h2>${t.sunTitle}</h2>
+            <p>${t.sunDesc}</p>
           </div>
         `;
         return;
@@ -465,18 +594,20 @@
       submitWrapper.style.display = 'block';
       voiceWrapper.style.display = 'block';
 
-      const dayData = data[dayKey];
+      const dayData = scheduleData[dayKey];
       dayData.periods.forEach((p, idx) => {
         if (p.break) {
           const b = document.createElement('div');
           b.className = 'break-card';
-          b.innerText = '🥪 लंच / ब्रेक (BREAK TIME)';
+          b.innerText = t.breakText;
           container.appendChild(b);
         } else {
           const card = document.createElement('div');
           card.className = 'card';
-          let html = `<div class="period-title">📚 ${p.name}</div>`;
-          p.items.forEach((item, itemIdx) => {
+          const pName = p.name[currentLang];
+          let html = `<div class="period-title">${t.periodPrefix}${pName}</div>`;
+          const itemsList = p.items[currentLang];
+          itemsList.forEach((item, itemIdx) => {
             const inputId = `chk_${dayKey}_${idx}_${itemIdx}`;
             html += `
               <label class="item-row" for="${inputId}">
@@ -504,11 +635,12 @@
       });
 
       const percent = total > 0 ? Math.round((checked / total) * 100) : 0;
+      const t = translations[currentLang];
       
       const txt = document.getElementById('progress-text');
       const bar = document.getElementById('progress-fill');
       
-      txt.innerText = `पैकिंग प्रगति: ${checked} / ${total} पैक हुआ (${percent}%)`;
+      txt.innerText = t.progressText(checked, total, percent);
       bar.style.width = percent + '%';
 
       if (percent === 100) {
@@ -523,39 +655,28 @@
       }
     }
 
-    /* आइडिया 3: जश्न और फूलझड़ी (Celebration) */
     function triggerCelebration() {
-      // Confetti आतिशबाज़ी एनीमेशन
       if (typeof confetti === 'function') {
-        confetti({
-          particleCount: 80,
-          spread: 70,
-          origin: { y: 0.6 }
-        });
+        confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
         setTimeout(() => {
           confetti({ particleCount: 50, angle: 60, spread: 55, origin: { x: 0 } });
           confetti({ particleCount: 50, angle: 120, spread: 55, origin: { x: 1 } });
         }, 250);
       }
 
-      // पॉप-अप दिखाना
       document.getElementById('rewardModal').style.display = 'flex';
 
-      // वॉइस बधाई
       if ('speechSynthesis' in window) {
-        const cheerMsg = new SpeechSynthesisUtterance("शाबाश कौटिल्य बेटा! आज का स्कूल बैग बिल्कुल तैयार है!");
-        cheerMsg.lang = 'hi-IN';
-        cheerMsg.rate = 0.95;
-        window.speechSynthesis.speak(cheerMsg);
+        const utter = new SpeechSynthesisUtterance(translations[currentLang].speechCheer);
+        utter.lang = currentLang === 'hi' ? 'hi-IN' : 'en-IN';
+        utter.rate = 0.95;
+        window.speechSynthesis.speak(utter);
       }
     }
 
     function closeRewardModal() {
       document.getElementById('rewardModal').style.display = 'none';
     }
-
-    /* आइडिया 2: हिंदी ऑडियो असिस्टेंट (बोलकर सुनाए) */
-    let isSpeaking = false;
 
     function stopVoice() {
       if ('speechSynthesis' in window) {
@@ -565,7 +686,7 @@
       const btn = document.getElementById('btn-voice-toggle');
       const txt = document.getElementById('voice-btn-text');
       if (btn) btn.classList.remove('speaking');
-      if (txt) txt.innerText = "आज का बैग बोलकर सुनें";
+      if (txt) txt.innerText = translations[currentLang].voiceBtnDefault;
     }
 
     function toggleSpeakSchedule() {
@@ -575,46 +696,42 @@
       }
 
       if (!('speechSynthesis' in window)) {
-        alert("माफ़ कीजिए, आपके ब्राउज़र में ऑडियो सपोर्ट उपलब्ध नहीं है।");
+        alert(currentLang === 'hi' ? "ऑडियो सपोर्ट उपलब्ध नहीं है।" : "Audio not supported.");
         return;
       }
 
+      const t = translations[currentLang];
+
       if (activeDay === 'sun') {
-        const sunMsg = new SpeechSynthesisUtterance("आज रविवार है। स्कूल की छुट्टी है। बैग पैक करने की ज़रूरत नहीं है।");
-        sunMsg.lang = 'hi-IN';
+        const sunMsg = new SpeechSynthesisUtterance(t.speechSunday);
+        sunMsg.lang = currentLang === 'hi' ? 'hi-IN' : 'en-IN';
         window.speechSynthesis.speak(sunMsg);
         return;
       }
 
-      const dayInfo = data[activeDay];
+      const dayInfo = scheduleData[activeDay];
       const itemsList = [];
       dayInfo.periods.forEach(p => {
         if (!p.break && p.items) {
-          p.items.forEach(it => {
+          p.items[currentLang].forEach(it => {
             if (!itemsList.includes(it)) itemsList.push(it);
           });
         }
       });
 
-      const speechText = `नमस्ते अमृता जी! आज ${dayInfo.name} है। कौटिल्य के बैग में जाने वाली चीज़ें हैं: ${itemsList.join(', ')}। साथ ही पेंसिल बॉक्स, टिफिन और पानी की बोतल ज़रूर रखें।`;
-
+      const speechText = t.speechIntro(dayInfo.dayName[currentLang], itemsList.join(', '));
       const utter = new SpeechSynthesisUtterance(speechText);
-      utter.lang = 'hi-IN';
+      utter.lang = currentLang === 'hi' ? 'hi-IN' : 'en-IN';
       utter.rate = 0.92;
 
       utter.onstart = function() {
         isSpeaking = true;
         document.getElementById('btn-voice-toggle').classList.add('speaking');
-        document.getElementById('voice-btn-text').innerText = "बोल रहा है... (रोकने के लिए दबाएं)";
+        document.getElementById('voice-btn-text').innerText = t.voiceBtnSpeaking;
       };
 
-      utter.onend = function() {
-        stopVoice();
-      };
-
-      utter.onerror = function() {
-        stopVoice();
-      };
+      utter.onend = stopVoice;
+      utter.onerror = stopVoice;
 
       window.speechSynthesis.cancel();
       window.speechSynthesis.speak(utter);
@@ -632,49 +749,80 @@
       updateProgress();
     }
 
-    // व्हाट्सऐप पर ऑटोमैटिक अपडेट
+    // STRICT VALIDATION WALA WHATSAPP SEND FUNCTION
     function sendWhatsAppConfirmation() {
+      const t = translations[currentLang];
+      const realTodayKey = getRealTodayKey();
+
+      // 1. Din ka Match Check
+      if (activeDay !== realTodayKey) {
+        const realDayName = scheduleData[realTodayKey].dayName[currentLang];
+        alert(t.alertWrongDay(realDayName));
+        return;
+      }
+
+      // 2. Sunday Check
+      if (activeDay === 'sun') {
+        alert(t.speechSunday);
+        return;
+      }
+
+      // 3. 100% Complete Check
       const checkboxes = document.querySelectorAll('input[type="checkbox"]');
       const total = checkboxes.length;
       let checked = 0;
       checkboxes.forEach(c => { if(c.checked) checked++; });
       const percent = total > 0 ? Math.round((checked / total) * 100) : 0;
 
+      if (percent < 100) {
+        alert(t.alertIncomplete);
+        return;
+      }
+
       const currentTime = document.getElementById('live-time').innerText;
       const currentDate = document.getElementById('live-date').innerText;
 
-      let message = `🎒 *बैग चेकर अपडेट - कौटिल्य भारद्वाज*\n`;
-      message += `━━━━━━━━━━━━━━━━━━━\n`;
-      message += `✅ *स्थिति:* स्कूल बैग पूरी तरह पैक हो गया है!\n`;
-      message += `📅 *दिन व तारीख:* ${currentDate}\n`;
-      message += `⏰ *समय:* ${currentTime}\n`;
-      message += `📊 *प्रगति:* ${checked}/${total} सामान पैक हुआ (${percent}%)\n`;
-      message += `🎒 *दैनिक सामान:* टिफिन, पानी की बोतल व पेंसिल बॉक्स चेक कर लिए गए हैं।\n\n`;
-      message += `_सिटी कॉन्वेंट स्कूल, अतरौली | COOL ART®_`;
+      let message = "";
+      if (currentLang === 'hi') {
+        message += `🎒 *बैग चेकर अपडेट - कौटिल्य भारद्वाज*\n`;
+        message += `━━━━━━━━━━━━━━━━━━━\n`;
+        message += `✅ *स्थिति:* स्कूल बैग पूरी तरह पैक हो गया है!\n`;
+        message += `📅 *दिन व तारीख:* ${currentDate}\n`;
+        message += `⏰ *समय:* ${currentTime}\n`;
+        message += `📊 *प्रगति:* ${checked}/${total} सामान पैक हुआ (${percent}%)\n`;
+        message += `🎒 *दैनिक सामान:* टिफिन, पानी की बोतल व पेंसिल बॉक्स चेक कर लिए गए हैं।\n\n`;
+        message += `_सिटी कॉन्वेंट स्कूल, अतरौली | COOL ART®_`;
+      } else {
+        message += `🎒 *Bag Checker Update - Kautilya Bhardwaj*\n`;
+        message += `━━━━━━━━━━━━━━━━━━━\n`;
+        message += `✅ *Status:* School Bag is 100% Packed!\n`;
+        message += `📅 *Date:* ${currentDate}\n`;
+        message += `⏰ *Time:* ${currentTime}\n`;
+        message += `📊 *Progress:* ${checked}/${total} Items Checked (${percent}%)\n`;
+        message += `🎒 *Daily Essentials:* Tiffin, Water Bottle & Pencil Box are packed.\n\n`;
+        message += `_City Convent School, Atrauli | COOL ART®_`;
+      }
 
       const encodedMsg = encodeURIComponent(message);
       const waUrl = `https://wa.me/${MY_PHONE_NUMBER}?text=${encodedMsg}`;
       window.open(waUrl, '_blank');
     }
 
-    // ऑटो-डिटेक्ट और आज के दिन पर ऑटो-लॉक करना
     function autoSelectToday() {
-      const dayIndex = new Date().getDay();
-      const mapDays = { 0: 'sun', 1: 'mon', 2: 'tue', 3: 'wed', 4: 'thu', 5: 'fri', 6: 'sat' };
-      
-      const currentDayKey = mapDays[dayIndex];
-      const targetBtn = document.getElementById(`btn-${currentDayKey}`);
+      const realTodayKey = getRealTodayKey();
+      const targetBtn = document.getElementById(`btn-${realTodayKey}`);
       
       if (targetBtn) {
         const badge = document.createElement('span');
         badge.className = 'today-badge';
-        badge.innerText = '⭐ आज';
+        badge.innerText = translations[currentLang].todayBadge;
         targetBtn.appendChild(badge);
       }
 
-      switchDay(currentDayKey, targetBtn);
+      switchDay(realTodayKey, targetBtn);
     }
 
+    setLanguage('hi');
     autoSelectToday();
   </script>
 </body>
