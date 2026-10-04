@@ -13,10 +13,12 @@
   <!-- Android / Chrome Web App Manifest -->
   <link rel="manifest" href="data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22%E0%A4%95%E0%A5%8C%E0%A4%9F%E0%A4%BF%E0%A4%B2%E0%A5%8D%E0%A4%AF%20%E0%A4%AC%E0%A5%88%E0%A4%97%20%E0%A4%9A%E0%A5%87%E0%A4%95%E0%A4%B0%22%2C%22short_name%22%3A%22%E0%A4%95%E0%A5%8C%E0%A4%9F%E0%A4%BF%E0%A4%B2%E0%A5%8D%E0%A4%AF%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22kautilya.png%22%2C%22sizes%22%3A%22192x192%20512x512%22%2C%22type%22%3A%22image%2Fpng%22%7D%5D%7D">
 
+  <!-- Confetti Canvas Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
   <style>
     * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
     
-    /* बैकग्राउंड: आधुनिक सॉफ्ट ग्रेडिएंट + एजुकेशन डूडल पैटर्न */
     body {
       background-color: #f0f4f8;
       background-image: 
@@ -33,7 +35,6 @@
       position: relative;
     }
 
-    /* हल्का बैकग्राउंड वाटरमार्क (एजुकेशनल डूडल आइकॉन) */
     body::before {
       content: "✏️ 📐 📚 🎨 🎒 🔤 🔬 📝 ➕ ➖ ✖️ 📖 🖍️ ✂️ 💡";
       position: fixed;
@@ -50,13 +51,9 @@
       z-index: 0;
     }
 
-    /* सभी कार्ड्स को ऊपर रखने के लिए */
-    .app-container {
-      position: relative;
-      z-index: 1;
-    }
+    .app-container { position: relative; z-index: 1; }
 
-    /* लाइव डेट और टाइम क्लॉक विजेट */
+    /* लाइव क्लॉक विजेट */
     .live-clock-card {
       background: linear-gradient(135deg, #1e3a8a, #3b82f6);
       color: #ffffff;
@@ -73,18 +70,43 @@
     .live-date-text { font-size: 13px; font-weight: 700; margin-top: 1px; }
     .live-time-badge { background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(8px); padding: 5px 12px; border-radius: 20px; font-size: 14px; font-weight: 800; letter-spacing: 0.5px; border: 1px solid rgba(255, 255, 255, 0.3); }
 
-    /* हेडर सेक्शन */
-    .header { text-align: center; margin-bottom: 14px; width: 100%; display: flex; flex-direction: column; align-items: center; }
+    /* हेडर */
+    .header { text-align: center; margin-bottom: 12px; width: 100%; display: flex; flex-direction: column; align-items: center; }
     .avatar-wrapper { margin: 0 auto 10px auto; position: relative; }
-    .avatar-img { width: 98px; height: 98px; border-radius: 50%; object-fit: cover; box-shadow: 0 6px 18px rgba(37, 99, 235, 0.28); border: 3.5px solid #ffffff; display: block; margin: 0 auto; transition: transform 0.3s ease; }
-    .avatar-img:active { transform: scale(1.05); }
+    .avatar-img { width: 98px; height: 98px; border-radius: 50%; object-fit: cover; box-shadow: 0 6px 18px rgba(37, 99, 235, 0.28); border: 3.5px solid #ffffff; display: block; margin: 0 auto; }
     
     .checker-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 800; color: #2563eb; background: #dbeafe; padding: 4px 14px; border-radius: 20px; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.6px; border: 1px solid #bfdbfe; }
     .header h1.student-name { font-size: 26px; color: #0f172a; font-weight: 900; line-height: 1.2; letter-spacing: -0.5px; }
     .student-eng-name { font-size: 14px; color: #2563eb; font-weight: 700; margin-top: 2px; }
     .header p.school-info { font-size: 12.5px; color: #64748b; margin-top: 4px; font-weight: 500; }
 
-    /* पैकिंग प्रगति कार्ड (Glassmorphism Look) */
+    /* ऑडियो वॉइस असिस्टेंट बटन */
+    .voice-btn-wrap { margin-bottom: 14px; text-align: center; }
+    .btn-voice {
+      background: linear-gradient(135deg, #6366f1, #4f46e5);
+      color: #ffffff;
+      border: none;
+      padding: 9px 20px;
+      font-size: 13.5px;
+      font-weight: 800;
+      border-radius: 30px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+      transition: all 0.2s ease;
+    }
+    .btn-voice:active { transform: scale(0.96); }
+    .btn-voice.speaking { background: linear-gradient(135deg, #ef4444, #dc2626); animation: pulse 1s infinite; }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.5); }
+      70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+    }
+
+    /* प्रोग्रेस कार्ड */
     .progress-card { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border-radius: 16px; padding: 14px 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); margin-bottom: 14px; border: 1px solid rgba(255, 255, 255, 0.8); }
     .progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
     .progress-text { font-size: 13.5px; font-weight: 800; color: #1e293b; }
@@ -94,12 +116,32 @@
     .progress-bar-bg { width: 100%; height: 10px; background-color: #e2e8f0; border-radius: 10px; overflow: hidden; }
     .progress-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #3b82f6, #2563eb); border-radius: 10px; transition: width 0.3s ease, background 0.3s ease; }
 
-    /* दिन चुनने वाले बटन */
+    /* दिन के बटन ग्रिड */
     .days-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
-    .day-btn { padding: 11px 4px; font-size: 13px; font-weight: 700; border: 1px solid #e2e8f0; background: rgba(255, 255, 255, 0.85); color: #475569; border-radius: 12px; cursor: pointer; text-align: center; transition: all 0.2s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.03); backdrop-filter: blur(6px); }
+    .day-btn { position: relative; padding: 12px 4px; font-size: 13px; font-weight: 700; border: 1px solid #e2e8f0; background: rgba(255, 255, 255, 0.85); color: #475569; border-radius: 12px; cursor: pointer; text-align: center; transition: all 0.2s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.03); backdrop-filter: blur(6px); }
+    
     .day-btn.active { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #ffffff; border-color: #2563eb; box-shadow: 0 4px 12px rgba(37,99,235,0.32); transform: translateY(-1px); }
+    
+    .today-badge { position: absolute; top: -6px; right: -4px; background: #f59e0b; color: #ffffff; font-size: 9px; font-weight: 800; padding: 1px 6px; border-radius: 10px; border: 1px solid #ffffff; box-shadow: 0 2px 4px rgba(0,0,0,0.15); }
 
-    /* कार्ड और पीरियड स्टाइल */
+    .day-btn.sunday-btn { border-color: #fca5a5; background: #fff5f5; color: #dc2626; grid-column: span 3; font-weight: 800; font-size: 14px; }
+    .day-btn.sunday-btn.active { background: linear-gradient(135deg, #ef4444, #b91c1c) !important; color: #ffffff !important; border-color: #dc2626 !important; box-shadow: 0 4px 14px rgba(220,38,38,0.35) !important; }
+
+    /* रविवार की छुट्टी का कार्ड */
+    .sunday-holiday-card {
+      background: linear-gradient(135deg, #fff1f2, #ffe4e6);
+      border: 2px dashed #f43f5e;
+      border-radius: 16px;
+      padding: 24px 16px;
+      text-align: center;
+      margin-bottom: 14px;
+      box-shadow: 0 4px 16px rgba(244, 63, 94, 0.12);
+    }
+    .sunday-holiday-card .holiday-icon { font-size: 42px; margin-bottom: 8px; }
+    .sunday-holiday-card h2 { font-size: 20px; font-weight: 900; color: #be123c; margin-bottom: 6px; }
+    .sunday-holiday-card p { font-size: 13.5px; color: #881337; font-weight: 600; line-height: 1.5; }
+
+    /* कार्ड और पीरियड */
     .card { background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(10px); border-radius: 16px; padding: 14px 16px; box-shadow: 0 4px 18px rgba(0,0,0,0.03); margin-bottom: 12px; border: 1px solid rgba(255, 255, 255, 0.8); }
     .period-title { font-size: 14px; font-weight: 800; color: #1e40af; margin-bottom: 10px; border-bottom: 1px dashed #e2e8f0; padding-bottom: 6px; display: flex; align-items: center; gap: 6px; }
     
@@ -111,35 +153,84 @@
     .break-card { background: linear-gradient(135deg, #fef3c7, #fde68a); border: 1px solid #fcd34d; border-radius: 12px; padding: 10px; font-size: 13.5px; font-weight: 800; color: #92400e; text-align: center; margin: 12px 0; box-shadow: 0 2px 6px rgba(245, 158, 11, 0.15); }
     .essentials-title { font-size: 12.5px; font-weight: 800; color: #475569; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.6px; display: flex; align-items: center; gap: 6px; }
 
-    /* कंपनी फुटर (COOL ART®) */
+    /* व्हाट्सऐप सबमिट बटन */
+    .submit-section { margin-top: 16px; margin-bottom: 14px; text-align: center; }
+    .btn-whatsapp-submit {
+      width: 100%;
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      color: #ffffff;
+      border: none;
+      border-radius: 14px;
+      padding: 14px 18px;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(37, 211, 102, 0.35);
+      transition: all 0.2s ease;
+    }
+    .btn-whatsapp-submit:active { transform: scale(0.98); }
+    .btn-whatsapp-submit svg { width: 22px; height: 22px; fill: currentColor; }
+
+    /* स्टार रिवॉर्ड पॉप-अप मॉडल (Modal) */
+    .reward-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(5px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 20px;
+    }
+    .reward-modal {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 26px 20px;
+      text-align: center;
+      max-width: 380px;
+      width: 100%;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+      animation: popIn 0.3s ease-out;
+      border: 3px solid #fef08a;
+    }
+    @keyframes popIn {
+      0% { transform: scale(0.7); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .reward-stars { font-size: 38px; margin-bottom: 8px; letter-spacing: 4px; }
+    .reward-modal h3 { font-size: 22px; font-weight: 900; color: #15803d; margin-bottom: 6px; }
+    .reward-modal p { font-size: 14.5px; color: #334155; font-weight: 600; line-height: 1.5; margin-bottom: 18px; }
+    .btn-reward-close {
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 800;
+      padding: 10px 24px;
+      border-radius: 20px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(34, 197, 94, 0.35);
+    }
+
+    /* फुटर ब्रांडिंग */
     .footer-ad { margin-top: 24px; padding: 16px; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(8px); border-radius: 16px; border: 1px dashed #94a3b8; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
     .footer-brand { font-size: 15px; font-weight: 900; color: #0f172a; letter-spacing: 0.5px; }
     .footer-brand span { color: #dc2626; }
     .footer-address { font-size: 12px; color: #475569; margin-top: 4px; line-height: 1.4; font-weight: 600; }
     .footer-tagline { font-size: 11px; color: #64748b; margin-top: 6px; font-weight: 500; }
-
-    /* TIINY.HOST AD BANNER BLOCKER (CSS) */
-    div[class*="tiiny"],
-    iframe[src*="tiiny"],
-    div[style*="z-index: 2147483647"],
-    div[style*="z-index: 99999"],
-    div[style*="bottom: 0px"],
-    a[href*="tiiny.host"],
-    footer[class*="tiiny"] {
-      display: none !important;
-      visibility: hidden !important;
-      opacity: 0 !important;
-      height: 0 !important;
-      max-height: 0 !important;
-      pointer-events: none !important;
-    }
   </style>
 </head>
 <body>
 
 <div class="app-container">
 
-  <!-- लाइव क्लॉक और तारीख विजेट -->
+  <!-- लाइव क्लॉक और तारीख -->
   <div class="live-clock-card">
     <div class="clock-date-group">
       <div class="live-day-tag">📅 आज का दिन</div>
@@ -148,7 +239,7 @@
     <div class="live-time-badge" id="live-time">00:00:00 AM</div>
   </div>
 
-  <!-- हेडर: फोटो सेंटर, नाम और स्कूल -->
+  <!-- हेडर -->
   <div class="header">
     <div class="avatar-wrapper">
       <img src="kautilya.png" alt="Kautilya Bhardwaj" class="avatar-img" onerror="this.style.display='none'">
@@ -159,8 +250,15 @@
     <p class="school-info">अमृता जी के लिए विशेष सूची | सिटी कॉन्वेंट स्कूल, अतरौली</p>
   </div>
 
+  <!-- ऑडियो वॉइस असिस्टेंट बटन -->
+  <div class="voice-btn-wrap" id="voice-wrapper">
+    <button class="btn-voice" id="btn-voice-toggle" onclick="toggleSpeakSchedule()">
+      <span>🔊</span> <span id="voice-btn-text">आज का बैग बोलकर सुनें</span>
+    </button>
+  </div>
+
   <!-- पैकिंग प्रगति कार्ड -->
-  <div class="progress-card">
+  <div class="progress-card" id="progress-wrapper">
     <div class="progress-header">
       <div class="progress-text" id="progress-text">पैकिंग प्रगति: 0 / 0 पैक हुआ (0%)</div>
       <button class="btn-reset-top" onclick="resetChecks()">🔄 रीसेट करें</button>
@@ -178,13 +276,14 @@
     <button class="day-btn" id="btn-thu" onclick="switchDay('thu', this)">गुरुवार</button>
     <button class="day-btn" id="btn-fri" onclick="switchDay('fri', this)">शुक्रवार</button>
     <button class="day-btn" id="btn-sat" onclick="switchDay('sat', this)">शनिवार</button>
+    <button class="day-btn sunday-btn" id="btn-sun" onclick="switchDay('sun', this)">🛑 रविवार (स्कूल का अवकाश / छुट्टी)</button>
   </div>
 
-  <!-- पीरियड-वार सामग्री कंटेनर -->
+  <!-- टाइम टेबल कंटेनर -->
   <div id="schedule-container"></div>
 
-  <!-- रोज़ाना की अनिवार्य वस्तुएं -->
-  <div class="card">
+  <!-- दैनिक अनिवार्य वस्तुएं -->
+  <div class="card" id="essentials-card">
     <div class="essentials-title">⭐ रोज़ाना साथ जाने वाली ज़रूरी चीज़ें</div>
     <label class="item-row">
       <input type="checkbox" onchange="updateProgress()">
@@ -200,7 +299,15 @@
     </label>
   </div>
 
-  <!-- कंपनी ब्रांडिंग और विज्ञापन (COOL ART) -->
+  <!-- व्हाट्सऐप सबमिट बटन -->
+  <div class="submit-section" id="submit-wrapper">
+    <button class="btn-whatsapp-submit" onclick="sendWhatsAppConfirmation()">
+      <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+      <span>बैग पैक हो गया - सूचित करें</span>
+    </button>
+  </div>
+
+  <!-- कंपनी फुटर -->
   <div class="footer-ad">
     <div class="footer-brand">Designed & Developed by: <span>COOL ART®</span></div>
     <div class="footer-address">Village: Nahal, Atrauli, Aligarh, UP</div>
@@ -209,8 +316,21 @@
 
 </div>
 
+<!-- 100% पूरा होने पर स्टार रिवॉर्ड पॉप-अप -->
+<div class="reward-overlay" id="rewardModal">
+  <div class="reward-modal">
+    <div class="reward-stars">⭐⭐⭐</div>
+    <h3>शाबाश कौटिल्य बेटा!</h3>
+    <p>आज का पूरा स्कूल बैग एकदम परफेक्ट पैक हो गया है। आप बहुत अच्छे बच्चे हो! 🎉🎒</p>
+    <button class="btn-reward-close" onclick="closeRewardModal()">बहुत बढ़िया! 👍</button>
+  </div>
+</div>
+
   <script>
-    // लाइव तारीख और समय फंक्शन (हिंदी में)
+    const MY_PHONE_NUMBER = "919458614610"; 
+    let hasCelebrated = false;
+
+    // लाइव तारीख और समय
     function updateLiveClock() {
       const now = new Date();
       const hindiDays = ["रविवार", "सोमवार", "मंगलवार", "बुधवार", "गुरुवार", "शुक्रवार", "शनिवार"];
@@ -221,27 +341,24 @@
       const monthName = hindiMonths[now.getMonth()];
       const year = now.getFullYear();
 
-      // तारीख फॉर्मेट
       document.getElementById('live-date').innerText = `${dayName}, ${day} ${monthName} ${year}`;
 
-      // 12 घंटे वाला समय फॉर्मेट (AM/PM)
       let hours = now.getHours();
       const minutes = String(now.getMinutes()).padStart(2, '0');
       const seconds = String(now.getSeconds()).padStart(2, '0');
       const ampm = hours >= 12 ? 'PM' : 'AM';
       hours = hours % 12;
-      hours = hours ? hours : 12; // 0 को 12 लिखना
+      hours = hours ? hours : 12;
       const strHours = String(hours).padStart(2, '0');
 
       document.getElementById('live-time').innerText = `${strHours}:${minutes}:${seconds} ${ampm}`;
     }
-
-    // हर सेकंड समय अपडेट
     setInterval(updateLiveClock, 1000);
     updateLiveClock();
 
     const data = {
       mon: {
+        name: "सोमवार",
         periods: [
           { name: "पहला पीरियड", items: ["अंग्रेज़ी किताब", "अंग्रेज़ी कॉपी"] },
           { name: "दूसरा पीरियड", items: ["अंग्रेज़ी किताब", "अंग्रेज़ी कॉपी"] },
@@ -253,6 +370,7 @@
         ]
       },
       tue: {
+        name: "मंगलवार",
         periods: [
           { name: "पहला पीरियड", items: ["अंग्रेज़ी किताब", "अंग्रेज़ी कॉपी"] },
           { name: "दूसरा पीरियड", items: ["अंग्रेज़ी किताब", "अंग्रेज़ी कॉपी"] },
@@ -264,6 +382,7 @@
         ]
       },
       wed: {
+        name: "बुधवार",
         periods: [
           { name: "पहला पीरियड", items: ["गणित कॉपी"] },
           { name: "दूसरा पीरियड", items: ["गणित कॉपी"] },
@@ -275,6 +394,7 @@
         ]
       },
       thu: {
+        name: "गुरुवार",
         periods: [
           { name: "पहला पीरियड", items: ["अंग्रेज़ी किताब", "अंग्रेज़ी कॉपी"] },
           { name: "दूसरा पीरियड", items: ["अंग्रेज़ी किताब", "अंग्रेज़ी कॉपी"] },
@@ -286,6 +406,7 @@
         ]
       },
       fri: {
+        name: "शुक्रवार",
         periods: [
           { name: "पहला पीरियड", items: ["अंग्रेज़ी राइटिंग बुक"] },
           { name: "दूसरा पीरियड", items: ["अंग्रेज़ी राइटिंग बुक"] },
@@ -297,6 +418,7 @@
         ]
       },
       sat: {
+        name: "शनिवार",
         periods: [
           { name: "पहला पीरियड", items: ["अंग्रेज़ी राइटिंग बुक"] },
           { name: "दूसरा पीरियड", items: ["अंग्रेज़ी राइटिंग बुक"] },
@@ -312,10 +434,38 @@
     let activeDay = 'mon';
 
     function renderDay(dayKey) {
+      stopVoice();
+      hasCelebrated = false;
       const container = document.getElementById('schedule-container');
-      container.innerHTML = '';
-      const dayData = data[dayKey];
+      const progressWrapper = document.getElementById('progress-wrapper');
+      const essentialsCard = document.getElementById('essentials-card');
+      const submitWrapper = document.getElementById('submit-wrapper');
+      const voiceWrapper = document.getElementById('voice-wrapper');
 
+      container.innerHTML = '';
+
+      if (dayKey === 'sun') {
+        progressWrapper.style.display = 'none';
+        essentialsCard.style.display = 'none';
+        submitWrapper.style.display = 'none';
+        voiceWrapper.style.display = 'none';
+
+        container.innerHTML = `
+          <div class="sunday-holiday-card">
+            <div class="holiday-icon">🎉 🎒 🏡</div>
+            <h2>आज रविवार है - स्कूल की छुट्टी है!</h2>
+            <p>आज सिटी कॉन्वेंट स्कूल का अवकाश है। कौटिल्य के बैग में आज कोई किताब-कॉपी रखने की आवश्यकता नहीं है। आराम और मस्ती का दिन!</p>
+          </div>
+        `;
+        return;
+      }
+
+      progressWrapper.style.display = 'block';
+      essentialsCard.style.display = 'block';
+      submitWrapper.style.display = 'block';
+      voiceWrapper.style.display = 'block';
+
+      const dayData = data[dayKey];
       dayData.periods.forEach((p, idx) => {
         if (p.break) {
           const b = document.createElement('div');
@@ -344,6 +494,8 @@
     }
 
     function updateProgress() {
+      if (activeDay === 'sun') return;
+
       const checkboxes = document.querySelectorAll('input[type="checkbox"]');
       const total = checkboxes.length;
       let checked = 0;
@@ -360,10 +512,112 @@
       bar.style.width = percent + '%';
 
       if (percent === 100) {
-        bar.style.background = 'linear-gradient(90deg, #10b981, #059669)'; // पूरा होने पर रिच ग्रीन
+        bar.style.background = 'linear-gradient(90deg, #10b981, #059669)';
+        if (!hasCelebrated) {
+          triggerCelebration();
+          hasCelebrated = true;
+        }
       } else {
-        bar.style.background = 'linear-gradient(90deg, #3b82f6, #2563eb)'; // प्रोग्रेस में रिच ब्लू
+        bar.style.background = 'linear-gradient(90deg, #3b82f6, #2563eb)';
+        hasCelebrated = false;
       }
+    }
+
+    /* आइडिया 3: जश्न और फूलझड़ी (Celebration) */
+    function triggerCelebration() {
+      // Confetti आतिशबाज़ी एनीमेशन
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 80,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
+        setTimeout(() => {
+          confetti({ particleCount: 50, angle: 60, spread: 55, origin: { x: 0 } });
+          confetti({ particleCount: 50, angle: 120, spread: 55, origin: { x: 1 } });
+        }, 250);
+      }
+
+      // पॉप-अप दिखाना
+      document.getElementById('rewardModal').style.display = 'flex';
+
+      // वॉइस बधाई
+      if ('speechSynthesis' in window) {
+        const cheerMsg = new SpeechSynthesisUtterance("शाबाश कौटिल्य बेटा! आज का स्कूल बैग बिल्कुल तैयार है!");
+        cheerMsg.lang = 'hi-IN';
+        cheerMsg.rate = 0.95;
+        window.speechSynthesis.speak(cheerMsg);
+      }
+    }
+
+    function closeRewardModal() {
+      document.getElementById('rewardModal').style.display = 'none';
+    }
+
+    /* आइडिया 2: हिंदी ऑडियो असिस्टेंट (बोलकर सुनाए) */
+    let isSpeaking = false;
+
+    function stopVoice() {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      isSpeaking = false;
+      const btn = document.getElementById('btn-voice-toggle');
+      const txt = document.getElementById('voice-btn-text');
+      if (btn) btn.classList.remove('speaking');
+      if (txt) txt.innerText = "आज का बैग बोलकर सुनें";
+    }
+
+    function toggleSpeakSchedule() {
+      if (isSpeaking) {
+        stopVoice();
+        return;
+      }
+
+      if (!('speechSynthesis' in window)) {
+        alert("माफ़ कीजिए, आपके ब्राउज़र में ऑडियो सपोर्ट उपलब्ध नहीं है।");
+        return;
+      }
+
+      if (activeDay === 'sun') {
+        const sunMsg = new SpeechSynthesisUtterance("आज रविवार है। स्कूल की छुट्टी है। बैग पैक करने की ज़रूरत नहीं है।");
+        sunMsg.lang = 'hi-IN';
+        window.speechSynthesis.speak(sunMsg);
+        return;
+      }
+
+      const dayInfo = data[activeDay];
+      const itemsList = [];
+      dayInfo.periods.forEach(p => {
+        if (!p.break && p.items) {
+          p.items.forEach(it => {
+            if (!itemsList.includes(it)) itemsList.push(it);
+          });
+        }
+      });
+
+      const speechText = `नमस्ते अमृता जी! आज ${dayInfo.name} है। कौटिल्य के बैग में जाने वाली चीज़ें हैं: ${itemsList.join(', ')}। साथ ही पेंसिल बॉक्स, टिफिन और पानी की बोतल ज़रूर रखें।`;
+
+      const utter = new SpeechSynthesisUtterance(speechText);
+      utter.lang = 'hi-IN';
+      utter.rate = 0.92;
+
+      utter.onstart = function() {
+        isSpeaking = true;
+        document.getElementById('btn-voice-toggle').classList.add('speaking');
+        document.getElementById('voice-btn-text').innerText = "बोल रहा है... (रोकने के लिए दबाएं)";
+      };
+
+      utter.onend = function() {
+        stopVoice();
+      };
+
+      utter.onerror = function() {
+        stopVoice();
+      };
+
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(utter);
     }
 
     function switchDay(dayKey, btnElement) {
@@ -378,27 +632,46 @@
       updateProgress();
     }
 
-    // Tiiny.host Ad Banner Blocker (JS)
-    setInterval(function() {
-      document.querySelectorAll('div, a, iframe, footer').forEach(function(el) {
-        if (el.innerText && (el.innerText.includes('Shared with') || el.innerText.includes('tiiny.host') || el.innerText.includes('Upload for free'))) {
-          el.remove();
-        }
-        if (el.href && el.href.includes('tiiny.host')) {
-          if (el.parentElement) el.parentElement.remove();
-          el.remove();
-        }
-      });
-    }, 200);
+    // व्हाट्सऐप पर ऑटोमैटिक अपडेट
+    function sendWhatsAppConfirmation() {
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      const total = checkboxes.length;
+      let checked = 0;
+      checkboxes.forEach(c => { if(c.checked) checked++; });
+      const percent = total > 0 ? Math.round((checked / total) * 100) : 0;
 
-    // ऑटो-डिटेक्ट आज का दिन (Auto select current day)
+      const currentTime = document.getElementById('live-time').innerText;
+      const currentDate = document.getElementById('live-date').innerText;
+
+      let message = `🎒 *बैग चेकर अपडेट - कौटिल्य भारद्वाज*\n`;
+      message += `━━━━━━━━━━━━━━━━━━━\n`;
+      message += `✅ *स्थिति:* स्कूल बैग पूरी तरह पैक हो गया है!\n`;
+      message += `📅 *दिन व तारीख:* ${currentDate}\n`;
+      message += `⏰ *समय:* ${currentTime}\n`;
+      message += `📊 *प्रगति:* ${checked}/${total} सामान पैक हुआ (${percent}%)\n`;
+      message += `🎒 *दैनिक सामान:* टिफिन, पानी की बोतल व पेंसिल बॉक्स चेक कर लिए गए हैं।\n\n`;
+      message += `_सिटी कॉन्वेंट स्कूल, अतरौली | COOL ART®_`;
+
+      const encodedMsg = encodeURIComponent(message);
+      const waUrl = `https://wa.me/${MY_PHONE_NUMBER}?text=${encodedMsg}`;
+      window.open(waUrl, '_blank');
+    }
+
+    // ऑटो-डिटेक्ट और आज के दिन पर ऑटो-लॉक करना
     function autoSelectToday() {
-      const dayIndex = new Date().getDay(); // 0 = Sun, 1 = Mon, ... 6 = Sat
-      const mapDays = { 1: 'mon', 2: 'tue', 3: 'wed', 4: 'thu', 5: 'fri', 6: 'sat' };
+      const dayIndex = new Date().getDay();
+      const mapDays = { 0: 'sun', 1: 'mon', 2: 'tue', 3: 'wed', 4: 'thu', 5: 'fri', 6: 'sat' };
       
-      // रविवार होने पर सोमवार डिफ़ॉल्ट रखेगा
-      const currentDayKey = mapDays[dayIndex] || 'mon';
+      const currentDayKey = mapDays[dayIndex];
       const targetBtn = document.getElementById(`btn-${currentDayKey}`);
+      
+      if (targetBtn) {
+        const badge = document.createElement('span');
+        badge.className = 'today-badge';
+        badge.innerText = '⭐ आज';
+        targetBtn.appendChild(badge);
+      }
+
       switchDay(currentDayKey, targetBtn);
     }
 
