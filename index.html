@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Bhardwaj Bag Checker | Kautilya & Pranav</title>
+  <title>भारद्वाज बैग चेकर | Kautilya & Pranav</title>
   
   <link rel="icon" type="image/png" href="kautilya.png">
   <link rel="apple-touch-icon" href="kautilya.png">
@@ -397,17 +397,17 @@
 <div class="pin-lock-overlay" id="pinOverlay">
   <div class="pin-box">
     <div class="pin-icon">🔒</div>
-    <div class="pin-title">Surakshit Access (Security PIN)</div>
-    <div class="pin-subtitle">Bhardwaj Bag Checker kholne ke liye 4-ankon ka PIN darj karein</div>
+    <div class="pin-title">सुरक्षित एक्सेस (Security PIN)</div>
+    <div class="pin-subtitle">भारद्वाज बैग चेकर खोलने के लिए 4-अंकों का पिन दर्ज करें</div>
     
     <input type="password" inputmode="numeric" maxlength="4" class="pin-input-field" id="userPinInput" placeholder="••••" autofocus>
     
     <label class="pin-remember-row" for="rememberMeCheckbox">
       <input type="checkbox" id="rememberMeCheckbox" checked>
-      <span>Is phone ko yaad rakhein (Bar-bar PIN na maangey)</span>
+      <span>इस फ़ोन को याद रखें (बार-बार पिन न माँगे)</span>
     </label>
     
-    <button class="btn-unlock" onclick="validateSecurityPin()">🔓 Unlock Karein</button>
+    <button class="btn-unlock" onclick="validateSecurityPin()">🔓 अनलॉक करें</button>
     <div class="pin-msg" id="pinErrorMessage"></div>
   </div>
 </div>
@@ -416,7 +416,7 @@
 <div class="app-container" id="mainAppContainer">
 
   <div class="top-action-bar">
-    <button class="btn-lock-app" onclick="lockAppManually()">🔒 Lock Karein</button>
+    <button class="btn-lock-app" onclick="lockAppManually()">🔒 लॉक करें</button>
     
     <div class="lang-pill">
       <button class="lang-btn active" id="btn-lang-hi" onclick="setLanguage('hi')">हिंदी</button>
@@ -427,16 +427,16 @@
   <!-- Student Switcher Tab Bar -->
   <div class="student-switch-bar">
     <button class="student-tab-btn active" id="tab-kautilya" onclick="switchStudent('kautilya')">
-      <span>🎒 Kautilya (Nursery)</span>
+      <span>🎒 कौटिल्य (Nursery)</span>
     </button>
     <button class="student-tab-btn" id="tab-pranav" onclick="switchStudent('pranav')">
-      <span>👦 Pranav (Class 2)</span>
+      <span>👦 प्रणव (Class 2)</span>
     </button>
   </div>
 
   <div class="live-clock-card" id="liveClockCard">
     <div class="clock-date-group">
-      <div class="live-day-tag" id="ui-day-tag">📅 AAJ KA DIN</div>
+      <div class="live-day-tag" id="ui-day-tag">📅 आज का दिन</div>
       <div class="live-date-text" id="live-date">...</div>
     </div>
     <div class="live-time-badge" id="live-time">00:00:00 AM</div>
@@ -446,31 +446,31 @@
     <div class="avatar-wrapper" id="avatarContainer">
       <img src="kautilya.png" id="studentImg" alt="Student" class="avatar-img" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'96\' height=\'96\'><rect fill=\'%232563eb\' width=\'96\' height=\'96\'/><text fill=\'%23fff\' font-size=\'42\' x=\'50%25\' y=\'58%25\' text-anchor=\'middle\'>🎒</text></svg>'">
     </div>
-    <div class="checker-tag" id="ui-checker-tag">🎒 Ghar ke liye Bag Checker (Nursery)</div>
+    <div class="checker-tag" id="ui-checker-tag">🎒 घर के लिए बैग चेकर (नर्सरी)</div>
     <h1 class="student-name" id="ui-student-name">कौटिल्य भारद्वाज</h1>
     <div class="student-eng-name" id="ui-student-eng">Kautilya Bhardwaj</div>
-    <p class="school-info" id="ui-school-info">Amrita ji ke liye vishesh soochi | City Convent School, Atrauli</p>
+    <p class="school-info" id="ui-school-info">अमृता जी के लिए विशेष सूची | सिटी कॉन्वेंट स्कूल, अतरौली</p>
   </div>
 
   <!-- Dress Notice Card (Pranav Only) -->
   <div class="dress-notice-card" id="dressNoticeCard">
     <div class="dress-icon" id="dressIcon">👔</div>
     <div>
-      <div class="dress-title" id="dressTitle">Aaj ki Uniform / Dress</div>
-      <div class="dress-desc" id="dressDesc">Regular School Uniform</div>
+      <div class="dress-title" id="dressTitle">आज की यूनिफॉर्म / ड्रेस</div>
+      <div class="dress-desc" id="dressDesc">रेगुलर स्कूल यूनिफॉर्म</div>
     </div>
   </div>
 
   <div class="voice-btn-wrap" id="voice-wrapper">
     <button class="btn-voice" id="btn-voice-toggle" onclick="toggleSpeakSchedule()">
-      <span>🔊</span> <span id="voice-btn-text">Aaj ka bag bolkar sunein</span>
+      <span>🔊</span> <span id="voice-btn-text">आज का बैग बोलकर सुनें</span>
     </button>
   </div>
 
   <div class="progress-card" id="progress-wrapper">
     <div class="progress-header">
-      <div class="progress-text" id="progress-text">Packing Pragati: 0 / 0 pack hua (0%)</div>
-      <button class="btn-reset-top" id="ui-reset-btn" onclick="resetChecks()">🔄 Reset Karein</button>
+      <div class="progress-text" id="progress-text">पैकिंग प्रगति: 0 / 0 पैक हुआ (0%)</div>
+      <button class="btn-reset-top" id="ui-reset-btn" onclick="resetChecks()">🔄 रीसेट करें</button>
     </div>
     <div class="progress-bar-bg">
       <div class="progress-bar-fill" id="progress-fill"></div>
@@ -490,25 +490,25 @@
   <div id="schedule-container"></div>
 
   <div class="card" id="essentials-card">
-    <div class="essentials-title" id="ui-essentials-title">⭐ Rozana saath jaane wali zaroori cheezein</div>
+    <div class="essentials-title" id="ui-essentials-title">⭐ रोज़ाना साथ जाने वाली ज़रूरी चीज़ें</div>
     <label class="item-row">
       <input type="checkbox" onchange="updateProgress()">
-      <span class="item-label" id="ui-item-pencil">Pencil Box (2 chhili hui pencil, rubber, cutter)</span>
+      <span class="item-label" id="ui-item-pencil">पेंसिल बॉक्स (2 छिली पेंसिल, रबर, कटर)</span>
     </label>
     <label class="item-row">
       <input type="checkbox" onchange="updateProgress()">
-      <span class="item-label" id="ui-item-tiffin">Tiffin (Lunch Box)</span>
+      <span class="item-label" id="ui-item-tiffin">टिफिन (Lunch Box)</span>
     </label>
     <label class="item-row">
       <input type="checkbox" onchange="updateProgress()">
-      <span class="item-label" id="ui-item-bottle">Paani ki bottle (Water Bottle)</span>
+      <span class="item-label" id="ui-item-bottle">पानी की बोतल (Water Bottle)</span>
     </label>
   </div>
 
   <div class="submit-section" id="submit-wrapper">
     <button class="btn-whatsapp-submit" onclick="sendWhatsAppConfirmation()">
       <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-      <span id="ui-btn-submit-text">Bag Pack Ho Gaya - Suchit Karein</span>
+      <span id="ui-btn-submit-text">बैग पैक हो गया - सूचित करें</span>
     </button>
   </div>
 
@@ -520,12 +520,13 @@
 
 </div>
 
+<!-- Pop-up Reward Modal -->
 <div class="reward-overlay" id="rewardModal">
   <div class="reward-modal">
     <div class="reward-stars">⭐⭐⭐</div>
-    <h3 id="ui-modal-title">Shabash Beta!</h3>
-    <p id="ui-modal-desc">Aaj ka poora school bag 100% perfect taiyar ho gaya hai! 👍🎉</p>
-    <button class="btn-reward-close" id="ui-modal-btn" onclick="closeRewardModal()">Bahut Badhiya! 👍</button>
+    <h3 id="ui-modal-title">शाबाश बेटा!</h3>
+    <p id="ui-modal-desc">आज का पूरा स्कूल बैग 100% परफेक्ट तैयार हो गया है! 👍🎉</p>
+    <button class="btn-reward-close" id="ui-modal-btn" onclick="closeRewardModal()">बहुत बढ़िया! 👍</button>
   </div>
 </div>
 
@@ -533,7 +534,7 @@
     const CORRECT_SECURITY_PIN = "7017";
     const MY_PHONE_NUMBER = "919458614610";
 
-    let currentStudent = 'kautilya'; // 'kautilya' ya 'pranav'
+    let currentStudent = 'kautilya';
     let currentLang = 'hi';
     let activeDay = 'mon';
     let hasCelebrated = false;
@@ -565,7 +566,7 @@
         unlockAppInterface();
       } else {
         pinInput.classList.add('error');
-        errBox.innerText = "Galat PIN! Kripya sahi 4-ankon ka PIN darj karein.";
+        errBox.innerText = "गलत पिन! कृपया सही 4-अंकों का पिन दर्ज करें।";
         setTimeout(() => {
           pinInput.classList.remove('error');
           pinInput.value = "";
@@ -596,13 +597,26 @@
       }
     });
 
+    // Real system date helpers
     function getRealTodayKey() {
       const dayIndex = new Date().getDay();
       const mapDays = { 0: 'sun', 1: 'mon', 2: 'tue', 3: 'wed', 4: 'thu', 5: 'fri', 6: 'sat' };
       return mapDays[dayIndex];
     }
 
-    // STUDENT SWITCHER (Image update included)
+    function getRealTomorrowKey() {
+      const dayIndex = (new Date().getDay() + 1) % 7;
+      const mapDays = { 0: 'sun', 1: 'mon', 2: 'tue', 3: 'wed', 4: 'thu', 5: 'fri', 6: 'sat' };
+      return mapDays[dayIndex];
+    }
+
+    function isAdvanceTomorrowPack() {
+      const realToday = getRealTodayKey();
+      const realTomorrow = getRealTomorrowKey();
+      return activeDay === realTomorrow;
+    }
+
+    // STUDENT SWITCHER
     function switchStudent(studentKey) {
       currentStudent = studentKey;
       stopVoice();
@@ -617,14 +631,12 @@
         tabKautilya.classList.remove('pranav-active');
         tabPranav.classList.remove('active', 'pranav-active');
         clockCard.style.background = 'linear-gradient(135deg, #1e3a8a, #3b82f6)';
-        studentImg.src = 'kautilya.png';
-        studentImg.style.borderColor = '#ffffff';
+        studentImg.src = 'kautilya.png?v=' + new Date().getTime();
       } else {
         tabPranav.classList.add('active', 'pranav-active');
         tabKautilya.classList.remove('active');
         clockCard.style.background = 'linear-gradient(135deg, #0f766e, #0d9488)';
-        studentImg.src = 'pranav.png';
-        studentImg.style.borderColor = '#ffffff';
+        studentImg.src = 'pranav.png?v=' + new Date().getTime();
       }
 
       setLanguage(currentLang);
@@ -638,9 +650,6 @@
           name: "कौटिल्य भारद्वाज",
           eng: "Kautilya Bhardwaj",
           school: "अमृता जी के लिए विशेष सूची | सिटी कॉन्वेंट स्कूल, अतरौली",
-          cheer: "शाबाश कौटिल्य बेटा! आज का पूरा बैग पैक हो गया है!",
-          modalTitle: "शाबाश कौटिल्य बेटा!",
-          modalDesc: "आज का पूरा स्कूल बैग एकदम परफेक्ट पैक हो गया है। आप बहुत अच्छे बच्चे हो! 🎉🎒",
           pencilItem: "पेंसिल बॉक्स (2 छिली पेंसिल, रबर, कटर)"
         },
         en: {
@@ -648,9 +657,6 @@
           name: "Kautilya Bhardwaj",
           eng: "कौटिल्य भारद्वाज",
           school: "Special Checklist for Amrita Ji | City Convent School, Atrauli",
-          cheer: "Well done Kautilya! Your school bag is completely ready!",
-          modalTitle: "Well Done Kautilya!",
-          modalDesc: "The school bag is 100% packed and ready. You are a brilliant boy! 🎉🎒",
           pencilItem: "Pencil Box (2 sharpened pencils, eraser, sharpener)"
         }
       },
@@ -740,7 +746,7 @@
       }
     };
 
-    // DATA FOR PRANAV (CLASS 2) - EXACT AS PER TIME TABLE CHART
+    // DATA FOR PRANAV (CLASS 2) - EXACT AS PER CHART[cite: 4]
     const pranavData = {
       meta: {
         hi: {
@@ -748,9 +754,6 @@
           name: "प्रणव भारद्वाज",
           eng: "Pranav Bhardwaj (Class II)",
           school: "अमृता जी के लिए विशेष सूची | सेशन 2026-27",
-          cheer: "शाबाश प्रणव बेटा! आज का पूरा स्कूल बैग 100% परफेक्ट तैयार हो गया है!",
-          modalTitle: "शाबाश प्रणव बेटा!",
-          modalDesc: "Class II का पूरा स्कूल बैग एकदम परफेक्ट तैयार हो गया है! 👍🎉",
           pencilItem: "पेंसिल बॉक्स (पेंसिल, रबर, कटर, स्केल)"
         },
         en: {
@@ -758,9 +761,6 @@
           name: "Pranav Bhardwaj",
           eng: "प्रणव भारद्वाज",
           school: "Special Checklist for Amrita Ji | Session 2026-27",
-          cheer: "Well done Pranav! Your school bag is completely ready!",
-          modalTitle: "Well Done Pranav!",
-          modalDesc: "Class II school bag is 100% packed and ready! 👍🎉",
           pencilItem: "Pencil Box (Pencil, Eraser, Sharpener, Scale)"
         }
       },
@@ -805,7 +805,7 @@
             { name: { hi: "तीसरा पीरियड (Hindi)", en: "3rd Period (Hindi)" }, items: { hi: ["Hindi Reader Book", "Hindi Copy 1"], en: ["Hindi Reader Book", "Hindi Copy 1"] } },
             { name: { hi: "चौथा पीरियड (Maths)", en: "4th Period (Maths)" }, items: { hi: ["Maths H.W. Copy", "Maths C.W. Copy"], en: ["Maths H.W. Copy", "Maths C.W. Copy"] } },
             { break: true },
-            { name: { hi: "पांचवां पीरियड (Hindi)", en: "5th Period (Hindi)" }, items: { hi: ["Hindi Writing + Dict. Copy 3"], en: ["Hindi Writing + Dict. Copy 3"] } },
+            { name: { hi: "पांचवां पीरियड (Hindi)", en: "5th Period (Hindi)" }, items: { hi: ["Hindi Copy 3 (Writing + Dict.)"], en: ["Hindi Copy 3 (Writing + Dict.)"] } },
             { name: { hi: "छठा पीरियड (G.K.)", en: "6th Period (G.K.)" }, items: { hi: ["G.K. Book", "G.K. Copy 5"], en: ["G.K. Book", "G.K. Copy 5"] } },
             { name: { hi: "सातवां पीरियड (Moral Sc.)", en: "7th Period (Moral Sc.)" }, items: { hi: ["Moral Science Book", "Moral Science Copy 6"], en: ["Moral Science Book", "Moral Science Copy 6"] } }
           ]
@@ -820,7 +820,7 @@
             { name: { hi: "तीसरा पीरियड (Hindi)", en: "3rd Period (Hindi)" }, items: { hi: ["Hindi Grammar Copy 2"], en: ["Hindi Grammar Copy 2"] } },
             { name: { hi: "चौथा पीरियड (Maths)", en: "4th Period (Maths)" }, items: { hi: ["Maths H.W. Copy", "Maths C.W. Copy"], en: ["Maths H.W. Copy", "Maths C.W. Copy"] } },
             { break: true },
-            { name: { hi: "पांचवां पीरियड (Hindi)", en: "5th Period (Hindi)" }, items: { hi: ["Hindi Writing + Dict. Copy 3"], en: ["Hindi Writing + Dict. Copy 3"] } },
+            { name: { hi: "पांचवां पीरियड (Hindi)", en: "5th Period (Hindi)" }, items: { hi: ["Hindi Copy 3 (Writing + Dict.)"], en: ["Hindi Copy 3 (Writing + Dict.)"] } },
             { name: { hi: "छठा पीरियड (G.K.)", en: "6th Period (G.K.)" }, items: { hi: ["G.K. Book", "G.K. Copy 5"], en: ["G.K. Book", "G.K. Copy 5"] } },
             { name: { hi: "सातवां पीरियड (Moral Sc.)", en: "7th Period (Moral Sc.)" }, items: { hi: ["Moral Science Book", "Moral Science Copy 6"], en: ["Moral Science Book", "Moral Science Copy 6"] } }
           ]
@@ -879,7 +879,7 @@
         sunDesc: "आज स्कूल का अवकाश है। बैग में आज कोई किताब-कॉपी रखने की आवश्यकता नहीं है। आराम और मस्ती का दिन!",
         modalBtn: "बहुत बढ़िया! 👍",
         speechSunday: "आज रविवार है। स्कूल की छुट्टी है। बैग पैक करने की ज़रूरत नहीं है।",
-        alertWrongDay: (todayName) => `⚠️ ध्यान दें: आज ${todayName} है! आप सिर्फ आज के दिन का ही बैग अपडेट व्हाट्सएप पर भेज सकते हैं।`,
+        alertWrongDay: "⚠️ ध्यान दें: आप केवल 'आज' का बैग या 'कल' (अगले दिन) का बैग ही पैक करके अपडेट भेज सकते हैं!",
         alertIncomplete: "⚠️ कृपया पहले बैग का सारा सामान पैक करके सभी बॉक्स पर टिक लगाएं, तभी सूचना भेजी जा सकती है।"
       },
       en: {
@@ -898,8 +898,8 @@
         sunDesc: "Today is an official school holiday. No need to pack books or notebooks today. Enjoy your Sunday!",
         modalBtn: "Awesome! 👍",
         speechSunday: "Today is Sunday. It is a school holiday. No need to pack the bag today.",
-        alertWrongDay: (todayName) => `⚠️ Note: Today is ${todayName}! You can only send bag packing updates for today's active schedule.`,
-        alertIncomplete: "⚠️️ Please check all items (100% pack) before sending the WhatsApp status."
+        alertWrongDay: "⚠️ Note: You can only pack and submit report for 'Today' or 'Tomorrow' (Next Day)!",
+        alertIncomplete: "⚠️ Please check all items (100% pack) before sending the WhatsApp status."
       }
     };
 
@@ -930,9 +930,6 @@
       document.getElementById('ui-item-tiffin').innerText = t.itemTiffin;
       document.getElementById('ui-item-bottle').innerText = t.itemBottle;
       document.getElementById('ui-btn-submit-text').innerText = t.btnSubmit;
-
-      document.getElementById('ui-modal-title').innerText = meta.modalTitle;
-      document.getElementById('ui-modal-desc').innerText = meta.modalDesc;
       document.getElementById('ui-modal-btn').innerText = t.modalBtn;
 
       ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'].forEach(k => {
@@ -1018,14 +1015,14 @@
 
       const dayData = activeDataset.schedule[dayKey];
 
-      // Dress Card (only for Pranav)
+      // Dress Card (Pranav only)
       if (currentStudent === 'pranav' && dayData.dress) {
         dressNoticeCard.style.display = 'flex';
         const dressTitleEl = document.getElementById('dressTitle');
         const dressDescEl = document.getElementById('dressDesc');
         const dressIconEl = document.getElementById('dressIcon');
 
-        dressTitleEl.innerText = currentLang === 'hi' ? `आज की ड्रेस (${dayData.dayName.hi})` : `Today's Dress (${dayData.dayName.en})`;
+        dressTitleEl.innerText = currentLang === 'hi' ? `यूनिफॉर्म (${dayData.dayName.hi})` : `Uniform (${dayData.dayName.en})`;
         dressDescEl.innerText = dayData.dress[currentLang];
         
         if (dayKey === 'wed' || dayKey === 'sat') {
@@ -1101,6 +1098,7 @@
       }
     }
 
+    // SPECIAL NIGHT / TOMORROW PACKING CELEBRATION
     function triggerCelebration() {
       if (typeof confetti === 'function') {
         confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
@@ -1110,11 +1108,40 @@
         }, 250);
       }
 
+      const modalTitle = document.getElementById('ui-modal-title');
+      const modalDesc = document.getElementById('ui-modal-desc');
+      const activeDataset = getCurrentDataset();
+      const studentName = currentStudent === 'kautilya' ? (currentLang === 'hi' ? "कौटिल्य" : "Kautilya") : (currentLang === 'hi' ? "प्रणव" : "Pranav");
+      const selectedDayName = activeDataset.schedule[activeDay].dayName[currentLang];
+
+      let celebrationSpokenText = "";
+
+      if (isAdvanceTomorrowPack()) {
+        if (currentLang === 'hi') {
+          modalTitle.innerText = `अरे वाह! बहुत समझदार बच्चे! ⭐`;
+          modalDesc.innerText = `शाबाश ${studentName} बेटा! आपने कल (${selectedDayName}) का बैग आज शाम को ही एडवांस में 100% तैयार कर लिया है! सुबह कोई जल्दीबाज़ी नहीं होगी! 🎉🎒`;
+          celebrationSpokenText = `अरे वाह! शाबाश ${studentName} बेटा! आपने कल ${selectedDayName} का बैग आज शाम को ही एडवांस में तैयार कर लिया है!`;
+        } else {
+          modalTitle.innerText = `Super Smart Preparation! ⭐`;
+          modalDesc.innerText = `Well done ${studentName}! You have packed tomorrow's (${selectedDayName}) bag in advance! No morning rush! 🎉🎒`;
+          celebrationSpokenText = `Super smart work ${studentName}! You have packed tomorrow's bag in advance tonight!`;
+        }
+      } else {
+        if (currentLang === 'hi') {
+          modalTitle.innerText = `शाबाश ${studentName} बेटा!`;
+          modalDesc.innerText = `आज का पूरा स्कूल बैग एकदम परफेक्ट पैक हो गया है! आप बहुत अच्छे बच्चे हो! 🎉🎒`;
+          celebrationSpokenText = `शाबाश ${studentName} बेटा! आज का पूरा स्कूल बैग एकदम तैयार है!`;
+        } else {
+          modalTitle.innerText = `Well Done ${studentName}!`;
+          modalDesc.innerText = `Today's school bag is 100% packed and ready! Brilliant boy! 🎉🎒`;
+          celebrationSpokenText = `Well done ${studentName}! Today's school bag is completely ready!`;
+        }
+      }
+
       document.getElementById('rewardModal').style.display = 'flex';
 
       if ('speechSynthesis' in window) {
-        const activeDataset = getCurrentDataset();
-        const utter = new SpeechSynthesisUtterance(activeDataset.meta[currentLang].cheer);
+        const utter = new SpeechSynthesisUtterance(celebrationSpokenText);
         utter.lang = currentLang === 'hi' ? 'hi-IN' : 'en-IN';
         utter.rate = 0.95;
         window.speechSynthesis.speak(utter);
@@ -1168,15 +1195,16 @@
       });
 
       let speechText = "";
-      const studentName = currentStudent === 'kautilya' ? "कौटिल्य" : "प्रणव";
-      const studentNameEn = currentStudent === 'kautilya' ? "Kautilya" : "Pranav";
+      const studentName = currentStudent === 'kautilya' ? (currentLang === 'hi' ? "कौटिल्य" : "Kautilya") : (currentLang === 'hi' ? "प्रणव" : "Pranav");
 
       if (currentLang === 'hi') {
-        const dressPart = dayInfo.dress ? `आज की ड्रेस है: ${dayInfo.dress.hi}। ` : '';
-        speechText = `नमस्ते अमृता जी! आज ${dayInfo.dayName.hi} है। ${dressPart}${studentName} के बैग में जाने वाली चीज़ें हैं: ${itemsList.join(', ')}।`;
+        const timeLead = isAdvanceTomorrowPack() ? `कल ${dayInfo.dayName.hi} के लिए ` : `आज ${dayInfo.dayName.hi} को `;
+        const dressPart = dayInfo.dress ? `ड्रेस है: ${dayInfo.dress.hi}। ` : '';
+        speechText = `नमस्ते अमृता जी! ${timeLead}${studentName} के बैग में जाने वाली चीज़ें हैं: ${itemsList.join(', ')}। ${dressPart}साथ में टिफिन और बोतल भी ध्यान रखें।`;
       } else {
-        const dressPart = dayInfo.dress ? `Today's dress is: ${dayInfo.dress.en}. ` : '';
-        speechText = `Hello Amrita ji! Today is ${dayInfo.dayName.en}. ${dressPart}Items to pack in ${studentNameEn}'s bag are: ${itemsList.join(', ')}.`;
+        const timeLead = isAdvanceTomorrowPack() ? `for tomorrow ${dayInfo.dayName.en} ` : `for today ${dayInfo.dayName.en} `;
+        const dressPart = dayInfo.dress ? `Uniform: ${dayInfo.dress.en}. ` : '';
+        speechText = `Hello Amrita ji! Items to pack ${timeLead}in ${studentName}'s bag: ${itemsList.join(', ')}. ${dressPart}`;
       }
 
       const utter = new SpeechSynthesisUtterance(speechText);
@@ -1208,14 +1236,16 @@
       updateProgress();
     }
 
+    // WHATSAPP ADVANCE PACKING AWARE SUBMISSION
     function sendWhatsAppConfirmation() {
       const t = commonTranslations[currentLang];
       const realTodayKey = getRealTodayKey();
+      const realTomorrowKey = getRealTomorrowKey();
       const activeDataset = getCurrentDataset();
 
-      if (activeDay !== realTodayKey) {
-        const realDayName = activeDataset.schedule[realTodayKey].dayName[currentLang];
-        alert(t.alertWrongDay(realDayName));
+      // Rule: User can either pack TODAY or TOMORROW
+      if (activeDay !== realTodayKey && activeDay !== realTomorrowKey) {
+        alert(t.alertWrongDay);
         return;
       }
 
@@ -1240,22 +1270,31 @@
       const studentLabelHi = currentStudent === 'kautilya' ? "कौटिल्य भारद्वाज (Nursery)" : "प्रणव भारद्वाज (Class 2)";
       const studentLabelEn = currentStudent === 'kautilya' ? "Kautilya Bhardwaj (Nursery)" : "Pranav Bhardwaj (Class 2)";
       const dayData = activeDataset.schedule[activeDay];
+      const isAdvance = isAdvanceTomorrowPack();
 
       let message = "";
       if (currentLang === 'hi') {
-        message += `🎒 *बैग चेकर अपडेट - ${studentLabelHi}*\n`;
+        message += `🎒 *बैग चेकर रिपोर्ट - ${studentLabelHi}*\n`;
         message += `━━━━━━━━━━━━━━━━━━━\n`;
-        message += `✅ *स्थिति:* स्कूल बैग पूरी तरह पैक हो गया है!\n`;
-        message += `📅 *दिन व तारीख:* ${currentDate}\n`;
+        if (isAdvance) {
+          message += `🌟 *स्थिति:* कल (*${dayData.dayName.hi}*) का बैग आज ही एडवांस में तैयार कर लिया गया है!\n`;
+        } else {
+          message += `✅ *स्थिति:* आज (*${dayData.dayName.hi}*) का स्कूल बैग 100% पैक हो गया है!\n`;
+        }
+        message += `📅 *तारीख:* ${currentDate}\n`;
         message += `⏰ *समय:* ${currentTime}\n`;
-        if (dayData.dress) message += `👔 *आज की ड्रेस:* ${dayData.dress.hi}\n`;
+        if (dayData.dress) message += `👔 *ड्रेस कोड:* ${dayData.dress.hi}\n`;
         message += `📊 *प्रगति:* ${checked}/${total} सामान पैक हुआ (${percent}%)\n`;
         message += `🎒 *दैनिक सामान:* टिफिन, पानी की बोतल व पेंसिल बॉक्स चेक कर लिए गए हैं।\n\n`;
         message += `_सिटी कॉन्वेंट स्कूल, अतरौली | COOL ART®_`;
       } else {
-        message += `🎒 *Bag Checker Update - ${studentLabelEn}*\n`;
+        message += `🎒 *Bag Checker Report - ${studentLabelEn}*\n`;
         message += `━━━━━━━━━━━━━━━━━━━\n`;
-        message += `✅ *Status:* School Bag is 100% Packed!\n`;
+        if (isAdvance) {
+          message += `🌟 *Status:* Tomorrow's (*${dayData.dayName.en}*) bag packed in advance!\n`;
+        } else {
+          message += `✅ *Status:* Today's (*${dayData.dayName.en}*) school bag is 100% Packed!\n`;
+        }
         message += `📅 *Date:* ${currentDate}\n`;
         message += `⏰ *Time:* ${currentTime}\n`;
         if (dayData.dress) message += `👔 *Uniform:* ${dayData.dress.en}\n`;
