@@ -40,15 +40,118 @@
       opacity: 0.04; pointer-events: none; word-wrap: break-word; z-index: 0;
     }
 
-    .app-container { position: relative; z-index: 1; }
-
-    .lang-switch-wrap {
+    /* 4-Digit Security PIN Screen */
+    .pin-lock-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      z-index: 99999;
       display: flex;
-      justify-content: flex-end;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .pin-box {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      border-radius: 24px;
+      padding: 28px 22px;
+      width: 100%;
+      max-width: 360px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      animation: popIn 0.3s ease-out;
+    }
+    .pin-icon { font-size: 42px; margin-bottom: 8px; }
+    .pin-title { font-size: 20px; font-weight: 900; color: #0f172a; margin-bottom: 4px; }
+    .pin-subtitle { font-size: 13px; color: #64748b; font-weight: 600; margin-bottom: 18px; }
+    
+    .pin-input-field {
+      width: 170px;
+      height: 52px;
+      font-size: 28px;
+      letter-spacing: 14px;
+      text-align: center;
+      font-weight: 900;
+      color: #1e3a8a;
+      border: 2px solid #cbd5e1;
+      border-radius: 14px;
+      outline: none;
+      background: #f8fafc;
+      transition: all 0.2s ease;
+      margin: 0 auto 12px auto;
+      display: block;
+    }
+    .pin-input-field:focus {
+      border-color: #2563eb;
+      background: #ffffff;
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+    }
+    .pin-input-field.error {
+      border-color: #ef4444;
+      background: #fef2f2;
+      animation: shake 0.3s;
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-8px); }
+      40%, 80% { transform: translateX(8px); }
+    }
+
+    .pin-remember-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .pin-remember-row input { width: 17px; height: 17px; accent-color: #2563eb; cursor: pointer; }
+    .pin-remember-row span { font-size: 12.5px; font-weight: 700; color: #475569; }
+
+    .btn-unlock {
+      width: 100%;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #ffffff;
+      border: none;
+      padding: 13px;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(37,99,235,0.35);
+      transition: all 0.2s ease;
+    }
+    .btn-unlock:active { transform: scale(0.98); }
+    .pin-msg { font-size: 12px; color: #ef4444; font-weight: 700; margin-top: 10px; min-height: 18px; }
+
+    /* Main App Container */
+    .app-container { position: relative; z-index: 1; display: none; }
+
+    .top-action-bar {
+      display: flex;
+      justify-content: space-between;
       align-items: center;
       margin-bottom: 10px;
-      gap: 8px;
     }
+    .btn-lock-app {
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid #cbd5e1;
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 11.5px;
+      font-weight: 800;
+      color: #64748b;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+    }
+    .btn-lock-app:active { background: #fee2e2; color: #dc2626; border-color: #fca5a5; }
+
     .lang-pill {
       background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(8px);
@@ -238,9 +341,31 @@
 </head>
 <body>
 
-<div class="app-container">
+<!-- 4-Digit Security PIN Lock Screen -->
+<div class="pin-lock-overlay" id="pinOverlay">
+  <div class="pin-box">
+    <div class="pin-icon">🔒</div>
+    <div class="pin-title">सुरक्षित एक्सेस (Security PIN)</div>
+    <div class="pin-subtitle">कौटिल्य बैग चेकर खोलने के लिए 4-अंकों का पिन डालें</div>
+    
+    <input type="password" inputmode="numeric" maxlength="4" class="pin-input-field" id="userPinInput" placeholder="••••" autofocus>
+    
+    <label class="pin-remember-row" for="rememberMeCheckbox">
+      <input type="checkbox" id="rememberMeCheckbox" checked>
+      <span>इस फ़ोन को याद रखें (बार-बार पिन न माँगे)</span>
+    </label>
+    
+    <button class="btn-unlock" onclick="validateSecurityPin()">🔓 अनलॉक करें (Unlock)</button>
+    <div class="pin-msg" id="pinErrorMessage"></div>
+  </div>
+</div>
 
-  <div class="lang-switch-wrap">
+<!-- Main Bag Checker App Content -->
+<div class="app-container" id="mainAppContainer">
+
+  <div class="top-action-bar">
+    <button class="btn-lock-app" onclick="lockAppManually()">🔒 लॉक करें</button>
+    
     <div class="lang-pill">
       <button class="lang-btn active" id="btn-lang-hi" onclick="setLanguage('hi')">हिंदी</button>
       <button class="lang-btn" id="btn-lang-en" onclick="setLanguage('en')">English</button>
@@ -334,13 +459,75 @@
 </div>
 
   <script>
+    // आपका गुप्त 4-अंकों का पिन और फ़ोन नंबर
+    const CORRECT_SECURITY_PIN = "7017";
     const MY_PHONE_NUMBER = "919458614610"; 
+
     let currentLang = 'hi';
     let activeDay = 'mon';
     let hasCelebrated = false;
     let isSpeaking = false;
 
-    // Asli current system day key prapt karna
+    // PIN LOCK LOGIC
+    function checkInitialSecurity() {
+      const isDeviceRemembered = localStorage.getItem('kautilya_bag_unlocked');
+      if (isDeviceRemembered === 'true') {
+        unlockAppInterface();
+      } else {
+        document.getElementById('pinOverlay').style.display = 'flex';
+        document.getElementById('mainAppContainer').style.display = 'none';
+        document.getElementById('userPinInput').focus();
+      }
+    }
+
+    function validateSecurityPin() {
+      const pinInput = document.getElementById('userPinInput');
+      const errBox = document.getElementById('pinErrorMessage');
+      const rememberCheckbox = document.getElementById('rememberMeCheckbox');
+      const enteredValue = pinInput.value.trim();
+
+      if (enteredValue === CORRECT_SECURITY_PIN) {
+        if (rememberCheckbox.checked) {
+          localStorage.setItem('kautilya_bag_unlocked', 'true');
+        }
+        errBox.innerText = "";
+        unlockAppInterface();
+      } else {
+        pinInput.classList.add('error');
+        errBox.innerText = "गलत पिन! कृपया सही 4-अंकों का पिन दर्ज करें।";
+        setTimeout(() => {
+          pinInput.classList.remove('error');
+          pinInput.value = "";
+          pinInput.focus();
+        }, 500);
+      }
+    }
+
+    function unlockAppInterface() {
+      document.getElementById('pinOverlay').style.display = 'none';
+      document.getElementById('mainAppContainer').style.display = 'block';
+      updateLiveClock();
+      autoSelectToday();
+    }
+
+    function lockAppManually() {
+      localStorage.removeItem('kautilya_bag_unlocked');
+      document.getElementById('userPinInput').value = "";
+      document.getElementById('pinErrorMessage').innerText = "";
+      document.getElementById('pinOverlay').style.display = 'flex';
+      document.getElementById('mainAppContainer').style.display = 'none';
+      stopVoice();
+    }
+
+    // Enter Key दबाने पर सीधा अनलॉक होना
+    document.getElementById('userPinInput').addEventListener('keyup', function(e) {
+      if (e.key === 'Enter') {
+        validateSecurityPin();
+      } else if (this.value.length === 4) {
+        validateSecurityPin();
+      }
+    });
+
     function getRealTodayKey() {
       const dayIndex = new Date().getDay();
       const mapDays = { 0: 'sun', 1: 'mon', 2: 'tue', 3: 'wed', 4: 'thu', 5: 'fri', 6: 'sat' };
@@ -373,7 +560,7 @@
         speechCheer: "शाबाश कौटिल्य बेटा! आज का स्कूल बैग बिल्कुल तैयार है!",
         speechSunday: "आज रविवार है। स्कूल की छुट्टी है। बैग पैक करने की ज़रूरत नहीं है।",
         speechIntro: (dayName, items) => `नमस्ते अमृता जी! आज ${dayName} है। कौटिल्य के बैग में जाने वाली चीज़ें हैं: ${items}। साथ ही पेंसिल बॉक्स, टिफिन और पानी की बोतल ज़रूर रखें।`,
-        alertWrongDay: (todayName) => `⚠️ ध्यान दें: आज ${todayName} है! आप सिर्फ आज के दिन का ही बैग अपडेट व्हाट्सएप पर भेज सकते हैं।`,
+        alertWrongDay: (todayName) => `⚠️️ ध्यान दें: आज ${todayName} है! आप सिर्फ आज के दिन का ही बैग अपडेट व्हाट्सएप पर भेज सकते हैं।`,
         alertIncomplete: "⚠️ कृपया पहले बैग का सारा सामान पैक करके सभी बॉक्स पर टिक लगाएं, तभी सूचना भेजी जा सकती है।"
       },
       en: {
@@ -401,7 +588,7 @@
         speechCheer: "Well done Kautilya! Your school bag is completely ready!",
         speechSunday: "Today is Sunday. It is a school holiday. No need to pack the bag today.",
         speechIntro: (dayName, items) => `Hello Amrita ji! Today is ${dayName}. Items to pack in Kautilya's bag are: ${items}. Please also pack the pencil box, tiffin and water bottle.`,
-        alertWrongDay: (todayName) => `⚠️ Note: Today is ${todayName}! You can only send bag packing updates for today's active schedule.`,
+        alertWrongDay: (todayName) => `⚠️️ Note: Today is ${todayName}! You can only send bag packing updates for today's active schedule.`,
         alertIncomplete: "⚠️ Please check all items (100% pack) before sending the WhatsApp status."
       }
     };
@@ -749,25 +936,21 @@
       updateProgress();
     }
 
-    // STRICT VALIDATION WALA WHATSAPP SEND FUNCTION
     function sendWhatsAppConfirmation() {
       const t = translations[currentLang];
       const realTodayKey = getRealTodayKey();
 
-      // 1. Din ka Match Check
       if (activeDay !== realTodayKey) {
         const realDayName = scheduleData[realTodayKey].dayName[currentLang];
         alert(t.alertWrongDay(realDayName));
         return;
       }
 
-      // 2. Sunday Check
       if (activeDay === 'sun') {
         alert(t.speechSunday);
         return;
       }
 
-      // 3. 100% Complete Check
       const checkboxes = document.querySelectorAll('input[type="checkbox"]');
       const total = checkboxes.length;
       let checked = 0;
@@ -823,7 +1006,7 @@
     }
 
     setLanguage('hi');
-    autoSelectToday();
+    checkInitialSecurity();
   </script>
 </body>
 </html>
