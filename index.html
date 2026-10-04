@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>भारद्वाज बैग चेकर | Kautilya & Pranav</title>
+  <title>Bhardwaj Bag Checker | Kautilya & Pranav</title>
   
   <link rel="icon" type="image/png" href="kautilya.png">
   <link rel="apple-touch-icon" href="kautilya.png">
@@ -232,14 +232,7 @@
 
     .header { text-align: center; margin-bottom: 12px; width: 100%; display: flex; flex-direction: column; align-items: center; }
     .avatar-wrapper { margin: 0 auto 10px auto; position: relative; }
-    .avatar-img { width: 92px; height: 92px; border-radius: 50%; object-fit: cover; box-shadow: 0 6px 18px rgba(37, 99, 235, 0.28); border: 3.5px solid #ffffff; display: block; margin: 0 auto; }
-    .avatar-icon-placeholder {
-      width: 86px; height: 86px; border-radius: 50%;
-      background: linear-gradient(135deg, #0d9488, #047857);
-      color: #ffffff; display: flex; align-items: center; justify-content: center;
-      font-size: 38px; box-shadow: 0 6px 18px rgba(13, 148, 136, 0.28);
-      border: 3.5px solid #ffffff;
-    }
+    .avatar-img { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; box-shadow: 0 6px 18px rgba(37, 99, 235, 0.28); border: 3.5px solid #ffffff; display: block; margin: 0 auto; transition: all 0.3s ease; }
     
     .checker-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 800; color: #2563eb; background: #dbeafe; padding: 4px 14px; border-radius: 20px; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.6px; border: 1px solid #bfdbfe; }
     .header h1.student-name { font-size: 26px; color: #0f172a; font-weight: 900; line-height: 1.2; letter-spacing: -0.5px; }
@@ -400,30 +393,30 @@
 </head>
 <body>
 
-<!-- 4-Digit Security PIN Lock Screen -->
+<!-- PIN Lock Overlay -->
 <div class="pin-lock-overlay" id="pinOverlay">
   <div class="pin-box">
     <div class="pin-icon">🔒</div>
-    <div class="pin-title">सुरक्षित एक्सेस (Security PIN)</div>
-    <div class="pin-subtitle">भारद्वाज बैग चेकर खोलने के लिए 4-अंकों का पिन दर्ज करें</div>
+    <div class="pin-title">Surakshit Access (Security PIN)</div>
+    <div class="pin-subtitle">Bhardwaj Bag Checker kholne ke liye 4-ankon ka PIN darj karein</div>
     
     <input type="password" inputmode="numeric" maxlength="4" class="pin-input-field" id="userPinInput" placeholder="••••" autofocus>
     
     <label class="pin-remember-row" for="rememberMeCheckbox">
       <input type="checkbox" id="rememberMeCheckbox" checked>
-      <span>इस फ़ोन को याद रखें (बार-बार पिन न माँगे)</span>
+      <span>Is phone ko yaad rakhein (Bar-bar PIN na maangey)</span>
     </label>
     
-    <button class="btn-unlock" onclick="validateSecurityPin()">🔓 अनलॉक करें (Unlock)</button>
+    <button class="btn-unlock" onclick="validateSecurityPin()">🔓 Unlock Karein</button>
     <div class="pin-msg" id="pinErrorMessage"></div>
   </div>
 </div>
 
-<!-- Main App -->
+<!-- Main App Container -->
 <div class="app-container" id="mainAppContainer">
 
   <div class="top-action-bar">
-    <button class="btn-lock-app" onclick="lockAppManually()">🔒 लॉक करें</button>
+    <button class="btn-lock-app" onclick="lockAppManually()">🔒 Lock Karein</button>
     
     <div class="lang-pill">
       <button class="lang-btn active" id="btn-lang-hi" onclick="setLanguage('hi')">हिंदी</button>
@@ -431,19 +424,19 @@
     </div>
   </div>
 
-  <!-- 1-Click Student Switcher Tab Bar -->
+  <!-- Student Switcher Tab Bar -->
   <div class="student-switch-bar">
     <button class="student-tab-btn active" id="tab-kautilya" onclick="switchStudent('kautilya')">
-      <span>🎒 कौटिल्य (Nursery)</span>
+      <span>🎒 Kautilya (Nursery)</span>
     </button>
     <button class="student-tab-btn" id="tab-pranav" onclick="switchStudent('pranav')">
-      <span>👦 प्रणव (Class 2)</span>
+      <span>👦 Pranav (Class 2)</span>
     </button>
   </div>
 
   <div class="live-clock-card" id="liveClockCard">
     <div class="clock-date-group">
-      <div class="live-day-tag" id="ui-day-tag">📅 आज का दिन</div>
+      <div class="live-day-tag" id="ui-day-tag">📅 AAJ KA DIN</div>
       <div class="live-date-text" id="live-date">...</div>
     </div>
     <div class="live-time-badge" id="live-time">00:00:00 AM</div>
@@ -451,33 +444,33 @@
 
   <div class="header">
     <div class="avatar-wrapper" id="avatarContainer">
-      <img src="kautilya.png" id="studentImg" alt="Student" class="avatar-img" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'92\' height=\'92\'><rect fill=\'%232563eb\' width=\'92\' height=\'92\'/><text fill=\'%23fff\' font-size=\'42\' x=\'50%25\' y=\'58%25\' text-anchor=\'middle\'>🎒</text></svg>'">
+      <img src="kautilya.png" id="studentImg" alt="Student" class="avatar-img" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'96\' height=\'96\'><rect fill=\'%232563eb\' width=\'96\' height=\'96\'/><text fill=\'%23fff\' font-size=\'42\' x=\'50%25\' y=\'58%25\' text-anchor=\'middle\'>🎒</text></svg>'">
     </div>
-    <div class="checker-tag" id="ui-checker-tag">🎒 घर के लिए बैग चेकर (नर्सरी)</div>
+    <div class="checker-tag" id="ui-checker-tag">🎒 Ghar ke liye Bag Checker (Nursery)</div>
     <h1 class="student-name" id="ui-student-name">कौटिल्य भारद्वाज</h1>
     <div class="student-eng-name" id="ui-student-eng">Kautilya Bhardwaj</div>
-    <p class="school-info" id="ui-school-info">अमृता जी के लिए विशेष सूची | सिटी कॉन्वेंट स्कूल, अतरौली</p>
+    <p class="school-info" id="ui-school-info">Amrita ji ke liye vishesh soochi | City Convent School, Atrauli</p>
   </div>
 
-  <!-- Dynamic Dress Notice Card (Visible for Pranav) -->
+  <!-- Dress Notice Card (Pranav Only) -->
   <div class="dress-notice-card" id="dressNoticeCard">
     <div class="dress-icon" id="dressIcon">👔</div>
     <div>
-      <div class="dress-title" id="dressTitle">आज की यूनिफॉर्म / ड्रेस</div>
-      <div class="dress-desc" id="dressDesc">रेगुलर स्कूल यूनिफॉर्म</div>
+      <div class="dress-title" id="dressTitle">Aaj ki Uniform / Dress</div>
+      <div class="dress-desc" id="dressDesc">Regular School Uniform</div>
     </div>
   </div>
 
   <div class="voice-btn-wrap" id="voice-wrapper">
     <button class="btn-voice" id="btn-voice-toggle" onclick="toggleSpeakSchedule()">
-      <span>🔊</span> <span id="voice-btn-text">आज का बैग बोलकर सुनें</span>
+      <span>🔊</span> <span id="voice-btn-text">Aaj ka bag bolkar sunein</span>
     </button>
   </div>
 
   <div class="progress-card" id="progress-wrapper">
     <div class="progress-header">
-      <div class="progress-text" id="progress-text">पैकिंग प्रगति: 0 / 0 पैक हुआ (0%)</div>
-      <button class="btn-reset-top" id="ui-reset-btn" onclick="resetChecks()">🔄 रीसेट करें</button>
+      <div class="progress-text" id="progress-text">Packing Pragati: 0 / 0 pack hua (0%)</div>
+      <button class="btn-reset-top" id="ui-reset-btn" onclick="resetChecks()">🔄 Reset Karein</button>
     </div>
     <div class="progress-bar-bg">
       <div class="progress-bar-fill" id="progress-fill"></div>
@@ -497,25 +490,25 @@
   <div id="schedule-container"></div>
 
   <div class="card" id="essentials-card">
-    <div class="essentials-title" id="ui-essentials-title">⭐ रोज़ाना साथ जाने वाली ज़रूरी चीज़ें</div>
+    <div class="essentials-title" id="ui-essentials-title">⭐ Rozana saath jaane wali zaroori cheezein</div>
     <label class="item-row">
       <input type="checkbox" onchange="updateProgress()">
-      <span class="item-label" id="ui-item-pencil">पेंसिल बॉक्स (2 छिली पेंसिल, रबर, कटर)</span>
+      <span class="item-label" id="ui-item-pencil">Pencil Box (2 chhili hui pencil, rubber, cutter)</span>
     </label>
     <label class="item-row">
       <input type="checkbox" onchange="updateProgress()">
-      <span class="item-label" id="ui-item-tiffin">टिफिन (Lunch Box)</span>
+      <span class="item-label" id="ui-item-tiffin">Tiffin (Lunch Box)</span>
     </label>
     <label class="item-row">
       <input type="checkbox" onchange="updateProgress()">
-      <span class="item-label" id="ui-item-bottle">पानी की बोतल (Water Bottle)</span>
+      <span class="item-label" id="ui-item-bottle">Paani ki bottle (Water Bottle)</span>
     </label>
   </div>
 
   <div class="submit-section" id="submit-wrapper">
     <button class="btn-whatsapp-submit" onclick="sendWhatsAppConfirmation()">
       <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-      <span id="ui-btn-submit-text">बैग पैक हो गया - सूचित करें</span>
+      <span id="ui-btn-submit-text">Bag Pack Ho Gaya - Suchit Karein</span>
     </button>
   </div>
 
@@ -530,9 +523,9 @@
 <div class="reward-overlay" id="rewardModal">
   <div class="reward-modal">
     <div class="reward-stars">⭐⭐⭐</div>
-    <h3 id="ui-modal-title">शाबाश बेटा!</h3>
-    <p id="ui-modal-desc">आज का पूरा स्कूल बैग 100% परफेक्ट तैयार हो गया है! 👍🎉</p>
-    <button class="btn-reward-close" id="ui-modal-btn" onclick="closeRewardModal()">बहुत बढ़िया! 👍</button>
+    <h3 id="ui-modal-title">Shabash Beta!</h3>
+    <p id="ui-modal-desc">Aaj ka poora school bag 100% perfect taiyar ho gaya hai! 👍🎉</p>
+    <button class="btn-reward-close" id="ui-modal-btn" onclick="closeRewardModal()">Bahut Badhiya! 👍</button>
   </div>
 </div>
 
@@ -540,13 +533,13 @@
     const CORRECT_SECURITY_PIN = "7017";
     const MY_PHONE_NUMBER = "919458614610";
 
-    let currentStudent = 'kautilya'; // 'kautilya' OR 'pranav'
+    let currentStudent = 'kautilya'; // 'kautilya' ya 'pranav'
     let currentLang = 'hi';
     let activeDay = 'mon';
     let hasCelebrated = false;
     let isSpeaking = false;
 
-    // PIN LOCK
+    // PIN LOCK CHECK
     function checkInitialSecurity() {
       const isDeviceRemembered = localStorage.getItem('bhardwaj_bag_unlocked');
       if (isDeviceRemembered === 'true') {
@@ -572,7 +565,7 @@
         unlockAppInterface();
       } else {
         pinInput.classList.add('error');
-        errBox.innerText = "गलत पिन! कृपया सही 4-अंकों का पिन दर्ज करें।";
+        errBox.innerText = "Galat PIN! Kripya sahi 4-ankon ka PIN darj karein.";
         setTimeout(() => {
           pinInput.classList.remove('error');
           pinInput.value = "";
@@ -609,7 +602,7 @@
       return mapDays[dayIndex];
     }
 
-    // STUDENT SWITCH HANDLER
+    // STUDENT SWITCHER (Image update included)
     function switchStudent(studentKey) {
       currentStudent = studentKey;
       stopVoice();
@@ -625,11 +618,13 @@
         tabPranav.classList.remove('active', 'pranav-active');
         clockCard.style.background = 'linear-gradient(135deg, #1e3a8a, #3b82f6)';
         studentImg.src = 'kautilya.png';
+        studentImg.style.borderColor = '#ffffff';
       } else {
         tabPranav.classList.add('active', 'pranav-active');
         tabKautilya.classList.remove('active');
         clockCard.style.background = 'linear-gradient(135deg, #0f766e, #0d9488)';
-        studentImg.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="92" height="92"><rect fill="%230d9488" width="92" height="92"/><text fill="%23fff" font-size="42" x="50%" y="58%" text-anchor="middle">👦</text></svg>';
+        studentImg.src = 'pranav.png';
+        studentImg.style.borderColor = '#ffffff';
       }
 
       setLanguage(currentLang);
@@ -745,7 +740,7 @@
       }
     };
 
-    // DATA FOR PRANAV (CLASS 2)
+    // DATA FOR PRANAV (CLASS 2) - EXACT AS PER TIME TABLE CHART
     const pranavData = {
       meta: {
         hi: {
@@ -875,7 +870,7 @@
         progressText: (chk, tot, pct) => `पैकिंग प्रगति: ${chk} / ${tot} पैक हुआ (${pct}%)`,
         resetBtn: "🔄 रीसेट करें",
         periodPrefix: "📚 ",
-        breakText: "🥪 लंच / ब्रेक (BREAK TIME)",
+        breakText: "🥪 लंच ब्रेक / रिसेस (BREAK TIME)",
         essentialsTitle: "⭐ रोज़ाना साथ जाने वाली ज़रूरी चीज़ें",
         itemTiffin: "टिफिन (Lunch Box)",
         itemBottle: "पानी की बोतल (Water Bottle)",
@@ -894,7 +889,7 @@
         progressText: (chk, tot, pct) => `Packing Progress: ${chk} / ${tot} Packed (${pct}%)`,
         resetBtn: "🔄 Reset All",
         periodPrefix: "📚 Period ",
-        breakText: "🥪 LUNCH / BREAK TIME",
+        breakText: "🥪 LUNCH / RECESS BREAK",
         essentialsTitle: "⭐ DAILY ESSENTIAL ITEMS",
         itemTiffin: "Lunch Box (Tiffin)",
         itemBottle: "Water Bottle",
@@ -904,7 +899,7 @@
         modalBtn: "Awesome! 👍",
         speechSunday: "Today is Sunday. It is a school holiday. No need to pack the bag today.",
         alertWrongDay: (todayName) => `⚠️ Note: Today is ${todayName}! You can only send bag packing updates for today's active schedule.`,
-        alertIncomplete: "⚠️ Please check all items (100% pack) before sending the WhatsApp status."
+        alertIncomplete: "⚠️️ Please check all items (100% pack) before sending the WhatsApp status."
       }
     };
 
